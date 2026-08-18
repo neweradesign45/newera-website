@@ -104,6 +104,9 @@ export const metadata: Metadata = {
     shortcut: "/icon",
     apple: "/icon",
   },
+  verification: {
+    google: "Vx6E9ggGFqshwVIjr5O5iBlfgCMj6HtGcurE6QU4Gl4",
+  },
   alternates: {
     canonical: BASE_URL,
   },
