@@ -14,16 +14,16 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const PROJECT_TYPES = ["BRAND", "WEB", "MOTION", "ALL OF THE ABOVE"] as const;
+const PROJECT_TYPES = ["LEAD GEN", "SUPPORT AI", "WORKFLOWS", "FULL AUTOMATION"] as const;
 
 const RED = "oklch(59.71% 0.23 23.86)";
 const RED_RGBA = "rgba(201, 58, 42,";
 
 const WORDS = [
   { text: "YOUR", accent: false },
-  { text: "VISION.", accent: true },
+  { text: "BUSINESS.", accent: true },
   { text: "OUR", accent: false },
-  { text: "CRAFT.", accent: true },
+  { text: "SYSTEMS.", accent: true },
 ];
 
 const SUCCESS_WORDS = [
@@ -241,7 +241,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                     textTransform: "uppercase",
                   }}
                 >
-                  ✦ YOUR NAME
+                  ✦ NEWERA AUTOMATIONS
                 </span>
 
                 <motion.button

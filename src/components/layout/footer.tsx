@@ -1,17 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import {
-  FaBehance,
-  FaInstagram,
-  FaYoutube,
+  FaWhatsapp,
+  FaEnvelope,
   FaArrowRight,
-  FaDiscord,
 } from "react-icons/fa6";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { getCalApi } from "@calcom/embed-react";
+import { WHATSAPP_LINK, EMAIL, BRAND_NAME } from "@/lib/constants";
 
 const SocialLink = ({
   href,
@@ -45,7 +42,6 @@ const MagneticButton = ({ children }: { children: React.ReactNode }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Smooth spring animation for the movement
   const xSpring = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
   const ySpring = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
 
@@ -54,7 +50,7 @@ const MagneticButton = ({ children }: { children: React.ReactNode }) => {
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     const centerX = left + width / 2;
     const centerY = top + height / 2;
-    x.set((e.clientX - centerX) * 0.2); // Move 20% of distance
+    x.set((e.clientX - centerX) * 0.2);
     y.set((e.clientY - centerY) * 0.2);
   };
 
@@ -78,29 +74,16 @@ const MagneticButton = ({ children }: { children: React.ReactNode }) => {
 export default function CreativeFooter() {
   const currentYear = new Date().getFullYear();
 
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace: "30min" });
-      cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
-    })();
-  }, []);
-
-  const handleLetsTalkClick = async (e: React.MouseEvent) => {
+  const handleLetsTalkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    const cal = await getCalApi({ namespace: "30min" });
-    cal("modal", {
-      calLink: "your-username/30min",
-    });
+    window.open(WHATSAPP_LINK, "_blank");
   };
 
   return (
     <footer className="relative w-full overflow-hidden border-t pt-20 md:pt-32 pb-10">
       {/* --- BACKGROUND EFFECTS --- */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* Noise Texture Overlay for that 'premium' feel */}
         <div className="absolute inset-0 opacity-[0.03] mix-blend-hard-light"></div>
-
-        {/* Animated Blobs (x.ai style) */}
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -131,8 +114,8 @@ export default function CreativeFooter() {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="text-6xl font-bold tracking-tighter md:text-8xl lg:text-9xl"
             >
-              Let&apos;s make <br />
-              <span className=" text-primary/80">waves.</span>
+              Let&apos;s <br />
+              <span className=" text-primary/80">automate.</span>
             </motion.h2>
           </div>
 
@@ -160,22 +143,13 @@ export default function CreativeFooter() {
             className="col-span-1 md:col-span-5 flex flex-col gap-6"
           >
             <Link href="/" className="flex w-fit items-center gap-3">
-              <div className="relative size-12 overflow-hidden rounded-xl bg-linear-to-br from-background to-muted border border-border shadow-sm flex items-center justify-center">
-                <Image
-                  src="/md-red-logo.svg"
-                  alt="Md Logo"
-                  width={32}
-                  height={32}
-                  className="object-contain"
-                />
-              </div>
               <span className="text-xl font-bold tracking-tight">
-                Your Name
+                NewEra<span className="text-primary">.</span>
               </span>
             </Link>
             <p className="max-w-xs text-muted-foreground text-sm leading-relaxed">
-              A creative agency crafting digital experiences that merge art with
-              functionality.
+              We build AI agents, smart workflows, and automation systems that
+              help businesses grow — without hiring more people.
             </p>
           </motion.div>
 
@@ -193,7 +167,7 @@ export default function CreativeFooter() {
             {[
               { label: "Home", href: "#hero" },
               { label: "About", href: "#about" },
-              { label: "Projects", href: "#projects" },
+              { label: "Services", href: "#projects" },
               { label: "Contact", href: "#contact" },
             ].map((item, i) => (
               <motion.div
@@ -217,7 +191,7 @@ export default function CreativeFooter() {
             ))}
           </motion.div>
 
-          {/* Socials Column */}
+          {/* Connect Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -226,28 +200,18 @@ export default function CreativeFooter() {
             className="col-span-1 md:col-span-4 flex flex-col gap-4"
           >
             <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground/80">
-              Socials
+              Connect
             </h3>
             <div className="flex flex-wrap gap-2">
               <SocialLink
-                href="https://www.youtube.com/@yourusername"
-                icon={FaYoutube}
-                label="YouTube"
+                href={WHATSAPP_LINK}
+                icon={FaWhatsapp}
+                label="WhatsApp"
               />
               <SocialLink
-                href="https://www.behance.net/yourusername"
-                icon={FaBehance}
-                label="Behance"
-              />
-              <SocialLink
-                href="https://www.instagram.com/yourusername"
-                icon={FaInstagram}
-                label="Instagram"
-              />
-              <SocialLink
-                href="https://discord.gg/yourinvite"
-                icon={FaDiscord}
-                label="Discord"
+                href={`mailto:${EMAIL}`}
+                icon={FaEnvelope}
+                label="Email"
               />
             </div>
           </motion.div>
@@ -260,15 +224,7 @@ export default function CreativeFooter() {
           transition={{ delay: 0.2 }}
           className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/40 py-6 text-xs text-muted-foreground md:flex-row"
         >
-          <p>© {currentYear} Your Name. All rights reserved.</p>
-          {/* <div className="flex gap-6">
-            <Link href="#" className="hover:text-foreground transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="#" className="hover:text-foreground transition-colors">
-              Terms of Service
-            </Link>
-          </div> */}
+          <p>© {currentYear} {BRAND_NAME}. All rights reserved.</p>
         </motion.div>
       </div>
     </footer>

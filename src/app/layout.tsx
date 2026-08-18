@@ -9,7 +9,7 @@ import Navbar from "@/components/layout/navbar";
 import StructuredData from "@/components/common/structured-data";
 import Analytics from "@/components/common/analytics";
 import ConsoleLog from "@/components/common/console-log";
-import CustomCursor from "@/components/ui/custom-cursor";
+
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -28,27 +28,26 @@ const cormorantGaramond = Cormorant_Garamond({
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Your Name - Professional Portfolio & Digital Services",
-    template: "%s | Your Name",
+    default: "NewEra Automations — AI Agents & Workflow Automation Agency",
+    template: "%s | NewEra Automations",
   },
   description:
-    "Professional portfolio showcasing web development, design, and digital solutions. Expert in modern web technologies, creative design, and innovative digital experiences.",
+    "We build AI agents, smart workflows, and automation systems that help businesses capture leads, recover revenue, and scale operations — without hiring more people.",
   keywords: [
-    "Web Development",
-    "Portfolio",
-    "Digital Services",
-    "Web Design",
-    "UI/UX Design",
-    "Frontend Development",
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Full Stack Developer",
-    "Creative Solutions",
+    "AI Automation Agency",
+    "WhatsApp Chatbot",
+    "Lead Qualification",
+    "Workflow Automation",
+    "n8n Automation",
+    "AI Agents India",
+    "Cold Email Infrastructure",
+    "E-Commerce Cart Recovery",
+    "Business Automation",
+    "NewEra Automations",
   ],
-  authors: [{ name: "Your Name" }],
-  creator: "Your Name",
-  publisher: "Your Name",
+  authors: [{ name: "Krishna Prajapati" }],
+  creator: "NewEra Automations",
+  publisher: "NewEra Automations",
   formatDetection: {
     email: false,
     address: false,
@@ -56,34 +55,34 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_IN",
     url: BASE_URL,
-    title: "Your Name - Professional Portfolio & Digital Services",
+    title: "NewEra Automations — AI Agents & Workflow Automation Agency",
     description:
-      "Explore a portfolio featuring cutting-edge web development projects, creative designs, and innovative digital solutions.",
-    siteName: "Your Name",
+      "We build AI agents, smart workflows, and automation systems that help businesses capture leads, recover revenue, and scale operations.",
+    siteName: "NewEra Automations",
     images: [
       {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Portfolio preview",
+        alt: "NewEra Automations — AI Agents & Workflow Automation",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Your Name - Professional Portfolio & Digital Services",
+    title: "NewEra Automations — AI Agents & Workflow Automation Agency",
     description:
-      "Explore a portfolio featuring cutting-edge web development projects, creative designs, and innovative digital solutions.",
-    creator: "@yourhandle",
+      "We build AI agents, smart workflows, and automation systems that help businesses capture leads, recover revenue, and scale operations.",
+    creator: "@neweraagents",
     images: [
       {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Portfolio preview",
+        alt: "NewEra Automations preview",
       },
     ],
   },
@@ -101,16 +100,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/icon" },
-      { url: "/md-red-logo.svg", type: "image/svg+xml" },
     ],
-    shortcut: "/md-red-logo.svg",
-    apple: "/md-red-logo.svg",
-  },
-  manifest: "/manifest.webmanifest",
-  verification: {
-    google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
-    // bing: "your-bing-verification-code",
+    shortcut: "/icon",
+    apple: "/icon",
   },
   alternates: {
     canonical: BASE_URL,
@@ -137,17 +129,8 @@ export default function RootLayout({
         */}
 
         {/* Warm up Vimeo connections early so ShowReel iframes load faster */}
-        <link rel="preconnect" href="https://player.vimeo.com" />
-        <link rel="preconnect" href="https://i.vimeocdn.com" />
-        <link rel="preconnect" href="https://f.vimeocdn.com" />
 
-        {/* ImageKit serves the 47 AboutScrollSection frames (crossOrigin) */}
-        <link
-          rel="preconnect"
-          href="https://ik.imagekit.io"
-          crossOrigin="anonymous"
-        />
-        <link rel="dns-prefetch" href="https://ik.imagekit.io" />
+
 
         <StructuredData />
         <Analytics />
@@ -155,7 +138,6 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${cormorantGaramond.variable} antialiased  mx-auto `}
       >
-        <CustomCursor />
         <ConsoleLog />
         <ThemeProvider
           attribute="class"
@@ -167,7 +149,6 @@ export default function RootLayout({
             <Navbar />
             {children}
             <FooterSection />
-            {/* <FloatingDockDemo /> */}
           </LenisWrapper>
         </ThemeProvider>
       </body>

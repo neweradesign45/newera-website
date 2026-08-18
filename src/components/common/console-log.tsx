@@ -19,7 +19,7 @@ export default function ConsoleLog() {
       "padding: 10px",
     ].join(";");
 
-    console.log("%cBuilt with Next.js", style);
+    console.log("%cNewEra Automations", style);
   }, []);
 
   return null;

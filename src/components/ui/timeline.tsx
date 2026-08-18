@@ -51,7 +51,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mb-4 w-fit rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-xs font-medium text-primary uppercase tracking-widest"
         >
-          Gallery
+          Workflows & Results
         </motion.div>
 
         <motion.div
@@ -62,9 +62,9 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
           <h2 className="text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-            <PhraseAnimation phrase="The   Gallery" />
+            <PhraseAnimation phrase="Enterprise   AI" />
             <span className="block bg-linear-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              <PhraseAnimation phrase="Showcase" className="text-primary" />
+              <PhraseAnimation phrase="Systems" className="text-primary" />
             </span>
           </h2>
         </motion.div>
@@ -84,7 +84,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           transition={{ duration: 0.7, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl"
         >
-          <PhraseAnimation phrase="Transforming ideas into engaging digital content designed to stand out." />
+          <PhraseAnimation phrase="Autonomous lead qualification, AI customer support, and cold outreach pipelines engineered for scalable business growth." />
         </motion.div>
       </div>
 

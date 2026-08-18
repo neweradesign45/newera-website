@@ -34,7 +34,7 @@ export function generateMetadata({
   type = 'website',
   publishedTime,
   modifiedTime,
-  author = 'Your Name',
+  author = 'Krishna Prajapati',
 }: SEOProps): Metadata {
   const baseUrl = BASE_URL
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl
@@ -53,7 +53,7 @@ export function generateMetadata({
       url: fullUrl,
       title,
       description,
-      siteName: 'Your Name',
+      siteName: 'Krishna Prajapati',
       images: [
         {
           url: fullImage,
@@ -69,7 +69,7 @@ export function generateMetadata({
       card: 'summary_large_image',
       title,
       description,
-      creator: '@yourhandle',
+      creator: '@neweraagents',
       images: [fullImage],
     },
     alternates: {
@@ -89,7 +89,7 @@ export function generateArticleMetadata({
   keywords = [],
   publishedTime,
   modifiedTime,
-  author = 'Your Name',
+  author = 'Krishna Prajapati',
 }: SEOProps): Metadata {
   return generateMetadata({
     title,

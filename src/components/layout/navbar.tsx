@@ -1,24 +1,21 @@
 "use client";
 
-import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import { ThemeToggleButton } from "./theme-switcher";
 import Link from "next/link";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, useAnimate, AnimatePresence } from "framer-motion";
+import { EMAIL } from "@/lib/constants";
 
 const navLinks = [
-  { name: "Projects", href: "#projects", label: "Our Work" },
-  // { name: "Services", href: "#services", label: "What We Do" },
+  { name: "Services", href: "#projects", label: "What We Build" },
   { name: "Contact", href: "#contact", label: "Get In Touch" },
   { name: "About", href: "#about", label: "Who We Are" },
 ];
 
 const socialLinks = [
-  { name: "YouTube", href: "https://www.youtube.com/@yourusername" },
-  { name: "Behance", href: "https://www.behance.net/yourusername" },
-  { name: "Instagram", href: "https://www.instagram.com/yourusername" },
-  { name: "Discord", href: "https://discord.gg/yourinvite" },
+  { name: "WhatsApp", href: "https://wa.me/917078994915" },
+  { name: "Email", href: "mailto:neweraagents45@gmail.com" },
 ];
 
 const EASE_OPEN: [number, number, number, number] = [0.76, 0, 0.24, 1];
@@ -29,8 +26,34 @@ const Navbar: React.FC = () => {
   const [showContent, setShowContent] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
   const [scope, animate] = useAnimate();
   const closedWidthRef = useRef<number>(0);
+  const lastScrollY = useRef<number>(0);
+
+  // Smart Auto-Hide Header: Hide on scroll down, show on scroll up
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Always show navbar near top of page or when menu is open
+      if (currentScrollY < 60 || isOpen) {
+        setIsVisible(true);
+      } else {
+        // Scroll Down -> Hide navbar; Scroll Up -> Reveal navbar
+        if (currentScrollY > lastScrollY.current + 8) {
+          setIsVisible(false);
+        } else if (currentScrollY < lastScrollY.current - 8) {
+          setIsVisible(true);
+        }
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isOpen]);
 
   // Close navbar when clicking outside
   useEffect(() => {
@@ -66,7 +89,6 @@ const Navbar: React.FC = () => {
     };
 
     if (isOpen) {
-      // Add a small delay to prevent immediate closing when opening
       const timer = setTimeout(() => {
         document.addEventListener("mousedown", handleClickOutside);
       }, 100);
@@ -76,8 +98,7 @@ const Navbar: React.FC = () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, isAnimating]);
+  }, [isOpen, isAnimating, animate, scope]);
 
   const handleToggle = async () => {
     if (isAnimating) return;
@@ -127,10 +148,16 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed top-5 left-0 right-0 z-50 flex justify-center items-center">
+    <nav
+      className={`fixed top-5 left-0 right-0 z-50 flex justify-center items-center transition-all duration-500 ease-out ${
+        isVisible
+          ? "translate-y-0 opacity-100 pointer-events-auto"
+          : "-translate-y-28 opacity-0 pointer-events-none"
+      }`}
+    >
       <div
         ref={scope}
-        className="w-4/5 md:w-xl border h-16 rounded bg-background/80 dark:bg-background/60 backdrop-blur-md flex flex-col overflow-hidden"
+        className="w-4/5 md:w-xl border h-16 rounded bg-background/80 dark:bg-background/60 backdrop-blur-md flex flex-col overflow-hidden shadow-2xl"
       >
         {/* ── Top bar ──────────────────────────────── */}
         <div className="flex justify-between items-center min-h-16 shrink-0 px-6">
@@ -174,13 +201,9 @@ const Navbar: React.FC = () => {
               if (isOpen) handleToggle();
             }}
           >
-            <Image
-              src="/md-red-logo.svg"
-              alt="Md Logo"
-              className="h-12 w-12 cursor-pointer"
-              width={12}
-              height={12}
-            />
+            <span className="text-lg font-bold tracking-tight cursor-pointer">
+              NewEra<span className="text-primary">.</span>
+            </span>
           </Link>
 
           <ThemeToggleButton
@@ -204,7 +227,6 @@ const Navbar: React.FC = () => {
               <div className="flex flex-col md:flex-row flex-1 gap-8 md:gap-0">
                 {/* ── Left: Navigation links ───────── */}
                 <div className="flex-1 flex flex-col justify-center">
-                  {/* Section label */}
                   <motion.span
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -245,7 +267,6 @@ const Navbar: React.FC = () => {
                         onClick={handleToggle}
                         className="group relative pr-6 flex items-center gap-4 md:gap-6 py-3 md:py-4 border-b border-border/20 last:border-b-0"
                       >
-                        {/* Number */}
                         <motion.span
                           className="text-xs md:text-sm font-mono text-muted-foreground/60 w-8 shrink-0"
                           initial={{ opacity: 0 }}
@@ -258,7 +279,6 @@ const Navbar: React.FC = () => {
                           {String(i + 1).padStart(2, "0")}
                         </motion.span>
 
-                        {/* Link text container */}
                         <div className="flex-1 overflow-hidden ">
                           <motion.div
                             className="flex items-baseline gap-3"
@@ -274,7 +294,6 @@ const Navbar: React.FC = () => {
                               {link.name}
                             </span>
 
-                            {/* Sublabel - shows on hover */}
                             <motion.span
                               className="text-xs md:text-sm text-muted-foreground hidden md:inline-block"
                               initial={{ opacity: 0, x: -10 }}
@@ -292,7 +311,6 @@ const Navbar: React.FC = () => {
                           </motion.div>
                         </div>
 
-                        {/* Arrow */}
                         <motion.div
                           className="shrink-0"
                           animate={{
@@ -308,7 +326,6 @@ const Navbar: React.FC = () => {
                           <ArrowUpRight className="h-5 w-5 md:h-6 md:w-6" />
                         </motion.div>
 
-                        {/* Hover highlight bar */}
                         <motion.div
                           className="absolute -left-4 top-0 bottom-0 w-[3px] bg-primary rounded-full origin-top"
                           initial={{ scaleY: 0 }}
@@ -337,22 +354,20 @@ const Navbar: React.FC = () => {
                   }}
                   className="hidden md:flex flex-col justify-between w-64 lg:w-96 pl-8 lg:pl-12 border-l border-border/20 mb-2"
                 >
-                  {/* CTA section */}
                   <div className="flex flex-col gap-4">
                     <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                       Let&apos;s Talk
                     </span>
                     <motion.a
-                      href="mailto:you@example.com"
+                      href={`mailto:${EMAIL}`}
                       className="text-sm hover:text-primary transition-colors"
                       whileHover={{ x: 4 }}
                       transition={{ duration: 0.2 }}
                     >
-                      you@example.com
+                      {EMAIL}
                     </motion.a>
                   </div>
 
-                  {/* Social links */}
                   <div className="flex flex-col gap-3">
                     <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-2">
                       Socials
@@ -383,7 +398,6 @@ const Navbar: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Location */}
                   <div className="flex flex-col gap-1">
                     <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                       Based In
@@ -423,7 +437,6 @@ const Navbar: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Mobile social links */}
                 <div className="flex gap-3 md:hidden">
                   {socialLinks.slice(0, 3).map((social) => (
                     <a

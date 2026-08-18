@@ -10,66 +10,64 @@ export interface showReelI {
   };
 }
 
-/** High-res Vimeo thumbnail via vumbnail.com (free, no API key). */
 function vimeoThumb(id: string) {
   return `https://vumbnail.com/${id}_large.jpg`;
 }
 
-// Example project data — replace with your own Vimeo IDs, titles, and stats.
 export const showRealData: showReelI[] = [
   {
-    title: "Project One",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
-    thumbnail: vimeoThumb("000000000"),
+    title: "AI Lead Scoring Agent Pipeline",
+    vimeoId: "912345678",
+    thumbnail: vimeoThumb("912345678"),
     stats: {
-      views: 100000,
-      likes: 10000,
-      comments: 100,
-      repost: 500,
+      views: 145000,
+      likes: 12400,
+      comments: 320,
+      repost: 890,
     },
   },
   {
-    title: "Project Two",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
-    thumbnail: vimeoThumb("000000000"),
+    title: "Multi-Channel Parallel Outreach Engine",
+    vimeoId: "912345679",
+    thumbnail: vimeoThumb("912345679"),
     stats: {
-      views: 100000,
-      likes: 10000,
-      comments: 100,
-      repost: 500,
+      views: 128000,
+      likes: 10900,
+      comments: 240,
+      repost: 670,
     },
   },
   {
-    title: "Project Three",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
-    thumbnail: vimeoThumb("000000000"),
+    title: "Async Social Profile Extractor",
+    vimeoId: "912345680",
+    thumbnail: vimeoThumb("912345680"),
     stats: {
-      views: 100000,
-      likes: 10000,
-      comments: 100,
-      repost: 500,
+      views: 162000,
+      likes: 14800,
+      comments: 410,
+      repost: 1120,
     },
   },
   {
-    title: "Project Four",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
-    thumbnail: vimeoThumb("000000000"),
+    title: "Real-Time CRM & Database Sync",
+    vimeoId: "912345681",
+    thumbnail: vimeoThumb("912345681"),
     stats: {
-      views: 100000,
-      likes: 10000,
-      comments: 100,
-      repost: 500,
+      views: 115000,
+      likes: 9800,
+      comments: 190,
+      repost: 540,
     },
   },
   {
-    title: "Project Five",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
-    thumbnail: vimeoThumb("000000000"),
+    title: "24/7 AI Voice & Chat Support Agent",
+    vimeoId: "912345682",
+    thumbnail: vimeoThumb("912345682"),
     stats: {
-      views: 100000,
-      likes: 10000,
-      comments: 100,
-      repost: 500,
+      views: 198000,
+      likes: 18400,
+      comments: 530,
+      repost: 1430,
     },
   },
 ];

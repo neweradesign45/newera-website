@@ -3,72 +3,62 @@ import { BASE_URL, OG_IMAGE } from "@/lib/constants";
 export default function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Your Name",
+    "@type": "Organization",
+    name: "NewEra Automations",
     url: BASE_URL,
     image: OG_IMAGE,
     description:
-      "Professional web developer and designer specializing in modern web technologies and creative digital solutions.",
-    jobTitle: "Web Developer & Designer",
+      "AI automation agency building intelligent workflows, chatbots, and lead generation systems for businesses.",
+    founder: {
+      "@type": "Person",
+      name: "Krishna Prajapati",
+    },
     sameAs: [
-      // Add your social media profiles
-      "https://github.com/yourusername",
-      "https://linkedin.com/in/yourusername",
-      "https://twitter.com/yourhandle",
+      "https://wa.me/917078994915",
     ],
     knowsAbout: [
-      "Web Development",
-      "Frontend Development",
-      "Next.js",
-      "React",
-      "TypeScript",
-      "UI/UX Design",
-      "Full Stack Development",
+      "AI Automation",
+      "Workflow Design",
+      "WhatsApp Chatbots",
+      "Lead Generation",
+      "Cold Email Infrastructure",
+      "n8n Pipelines",
+      "Business Process Automation",
     ],
   };
 
   const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Your Name Portfolio",
+    name: "NewEra Automations",
     url: BASE_URL,
     description:
-      "Professional portfolio showcasing web development, design, and digital solutions.",
+      "AI automation agency building intelligent workflows and systems for business growth.",
     author: {
-      "@type": "Person",
-      name: "Your Name",
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${BASE_URL}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
+      "@type": "Organization",
+      name: "NewEra Automations",
     },
   };
 
   const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: "Your Name",
-    image: `${BASE_URL}/md-red-logo.svg`,
+    name: "NewEra Automations",
+    image: OG_IMAGE,
     "@id": BASE_URL,
     url: BASE_URL,
-    telephone: "",
+    telephone: "+917078994915",
+    email: "neweraagents45@gmail.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "",
-      addressLocality: "",
-      postalCode: "",
-      addressCountry: "",
+      addressCountry: "IN",
     },
     priceRange: "$$",
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       opens: "09:00",
-      closes: "18:00",
+      closes: "21:00",
     },
   };
 

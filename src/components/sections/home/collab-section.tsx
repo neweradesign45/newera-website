@@ -77,24 +77,33 @@ const CollabSec: React.FC = () => {
           />
         )}
 
-        {/* ── TITLE ── */}
+        {/* ── TITLE & B2B CALLOUT ── */}
         <motion.div
           style={{ y: titleY, opacity: titleOpacity }}
-          className="relative z-20 flex flex-col items-center mb-10 md:mb-0 pt-16 md:pt-0 md:absolute md:top-16 px-4"
+          className="relative z-20 flex flex-col items-center mb-8 md:mb-0 pt-12 md:pt-0 md:absolute md:top-12 px-4 text-center"
         >
           <motion.p
             initial={{ opacity: 0, letterSpacing: "0.5em" }}
             whileInView={{ opacity: 1, letterSpacing: "0.3em" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="text-[10px] md:text-xs tracking-[0.3em] uppercase mb-4"
+            className="text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2"
             style={{
               fontFamily: "'DM Mono', monospace",
               color: redColor,
             }}
           >
-            ✦ Together We Build ✦
+            ✦ Custom AI Workflow Intake ✦
           </motion.p>
+          <h3 className="text-xl md:text-3xl font-bold tracking-tight text-white mb-4 max-w-xl">
+            Need a Custom AI Automation Built for Your Business?
+          </h3>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase text-white bg-primary hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20 hover:scale-105 cursor-pointer flex items-center gap-2"
+          >
+            Request Custom Audit & Proposal →
+          </button>
         </motion.div>
 
         {/* ── SPLIT IMAGES ── */}
@@ -102,12 +111,13 @@ const CollabSec: React.FC = () => {
           {/* LEFT */}
           <motion.div
             ref={leftRef}
-            className="relative w-full md:w-1/2 h-64 md:h-full overflow-hidden cursor-none group"
+            data-cursor-text="VIEW"
+            className="relative w-full md:w-1/2 h-64 md:h-full overflow-hidden cursor-pointer group"
             onMouseMove={(e) => {
               handleMagMove(
                 e,
-                leftMagX.set,
-                leftMagY.set,
+                (v) => leftMagX.set(v),
+                (v) => leftMagY.set(v),
                 leftRef as React.RefObject<HTMLDivElement>,
               );
               setHovered("left");
@@ -124,6 +134,7 @@ const CollabSec: React.FC = () => {
             onAnimationComplete={() => {
               setAnimationComplete(true);
             }}
+            onClick={() => setModalOpen(true)}
           >
             <motion.div
               style={{ x: leftSpringX, y: leftSpringY }}
@@ -147,82 +158,6 @@ const CollabSec: React.FC = () => {
               animate={{ opacity: hovered === "left" ? 1 : 0 }}
               transition={{ duration: 0.4 }}
             />
-
-            {/* Center text - brand name */}
-            {/* <AnimatePresence>
-            {animationComplete && (
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: 0.2,
-                }}
-              >
-                <div className="relative">
-                  <motion.h2
-                    className="text-white text-3xl md:text-5xl mr-5 lg:text-6xl font-semibold tracking-wider"
-                    style={{
-                      textShadow: "0 4px 30px rgba(0,0,0,0.5)",
-                    }}
-                    initial={{ opacity: 0, letterSpacing: "0.3em" }}
-                    animate={{ opacity: 1, letterSpacing: "0.08em" }}
-                    transition={{
-                      duration: 1.2,
-                      ease: [0.16, 1, 0.3, 1],
-                      delay: 0.3,
-                    }}
-                  >
-                    <motion.img src="/md-red-logo.svg" alt="Logo" />
-                  </motion.h2>
-                  <motion.div
-                    className="h-px mt-3"
-                    style={{
-                      backgroundImage: `linear-gradient(to right, transparent, ${redColor}, transparent)`,
-                    }}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{
-                      duration: 1,
-                      ease: [0.16, 1, 0.3, 1],
-                      delay: 0.6,
-                    }}
-                  />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence> */}
-
-            {/* Hover cursor */}
-            <AnimatePresence>
-              {hovered === "left" && (
-                <motion.div
-                  key="cursor-left"
-                  className="absolute pointer-events-none z-20 flex items-center justify-center"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    translateX: "-50%",
-                    translateY: "-50%",
-                  }}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <div className="w-20 h-20 rounded-full border border-white/60 flex items-center justify-center">
-                    <span
-                      className="text-white text-[10px] tracking-widest uppercase"
-                      style={{ fontFamily: "'DM Mono', monospace" }}
-                    >
-                      View
-                    </span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
 
             {/* Top-left corner */}
             <motion.div
@@ -248,12 +183,13 @@ const CollabSec: React.FC = () => {
           {/* RIGHT */}
           <motion.div
             ref={rightRef}
-            className="relative w-full md:w-1/2 h-64 md:h-full overflow-hidden cursor-none group"
+            data-cursor-text="VIEW"
+            className="relative w-full md:w-1/2 h-64 md:h-full overflow-hidden cursor-pointer group"
             onMouseMove={(e) => {
               handleMagMove(
                 e,
-                rightMagX.set,
-                rightMagY.set,
+                (v) => rightMagX.set(v),
+                (v) => rightMagY.set(v),
                 rightRef as React.RefObject<HTMLDivElement>,
               );
               setHovered("right");
@@ -267,6 +203,7 @@ const CollabSec: React.FC = () => {
             whileInView={{ clipPath: "inset(0 0 0 0%)" }}
             transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
             viewport={{ once: true }}
+            onClick={() => setModalOpen(true)}
           >
             <motion.div
               style={{ x: rightSpringX, y: rightSpringY }}
@@ -289,81 +226,6 @@ const CollabSec: React.FC = () => {
               animate={{ opacity: hovered === "right" ? 1 : 0 }}
               transition={{ duration: 0.4 }}
             />
-
-            {/* Center text - "you." */}
-            {/* <AnimatePresence>
-            {animationComplete && (
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: 0.4,
-                }}
-              >
-                <div className="relative">
-                  <motion.h2
-                    className="text-white text-3xl md:text-5xl lg:text-6xl font-semibold tracking-wider"
-                    style={{
-                      textShadow: "0 4px 30px rgba(0,0,0,0.5)",
-                    }}
-                    initial={{ opacity: 0, letterSpacing: "0.3em" }}
-                    animate={{ opacity: 1, letterSpacing: "0.08em" }}
-                    transition={{
-                      duration: 1.2,
-                      ease: [0.16, 1, 0.3, 1],
-                      delay: 0.5,
-                    }}
-                  >
-                    you.
-                  </motion.h2>
-                  <motion.div
-                    className="h-px mt-3"
-                    style={{
-                      backgroundImage: `linear-gradient(to right, transparent, ${redColor}, transparent)`,
-                    }}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{
-                      duration: 1,
-                      ease: [0.16, 1, 0.3, 1],
-                      delay: 0.8,
-                    }}
-                  />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence> */}
-
-            <AnimatePresence>
-              {hovered === "right" && (
-                <motion.div
-                  key="cursor-right"
-                  className="absolute pointer-events-none z-20 flex items-center justify-center"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    translateX: "-50%",
-                    translateY: "-50%",
-                  }}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <div className="w-20 h-20 rounded-full border border-white/60 flex items-center justify-center">
-                    <span
-                      className="text-white text-[10px] tracking-widest uppercase"
-                      style={{ fontFamily: "'DM Mono', monospace" }}
-                    >
-                      View
-                    </span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
 
             {/* Top-right corner */}
             <motion.div
@@ -455,7 +317,7 @@ const CollabSec: React.FC = () => {
                           }}
                         >
                           <textPath href="#collabRingDesktop" startOffset="0%">
-                            Let&apos;s collaborate ✦ Click to start ✦
+                            Let&apos;s automate ✦ Click to start ✦
                           </textPath>
                         </text>
                       </svg>
@@ -569,7 +431,7 @@ const CollabSec: React.FC = () => {
                           }}
                         >
                           <textPath href="#collabRingMobile" startOffset="0%">
-                            Tap to collaborate ✦ Start here ✦
+                            Tap to automate ✦ Start here ✦
                           </textPath>
                         </text>
                       </svg>

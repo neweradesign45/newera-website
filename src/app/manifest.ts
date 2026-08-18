@@ -1,20 +1,22 @@
-import { MetadataRoute } from 'next'
- 
+import { MetadataRoute } from "next";
+import { BRAND_NAME } from "@/lib/constants";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Your Name - Portfolio & Services',
-    short_name: 'Your Name',
-    description: 'Professional portfolio and services. Web development, design, and digital solutions.',
-    start_url: '/',
-    display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#000000',
+    name: "NewEra Automations — AI Agents & Workflow Agency",
+    short_name: "NewEra AI",
+    description:
+      "We build AI agents, smart workflows, and automation systems that help businesses scale operations.",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#0c0d0e",
+    theme_color: "#0c0d0e",
     icons: [
       {
-        src: '/md-red-logo.svg',
-        sizes: 'any',
-        type: 'image/svg+xml',
+        src: "/icon",
+        sizes: "192x192",
+        type: "image/png",
       },
     ],
-  }
+  };
 }
