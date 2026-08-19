@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     // If Resend API key is configured, send actual email
     if (resend) {
       const { data, error } = await resend.emails.send({
-        from: `${BRAND_NAME} <leads@neweraautomations.com>`,
+        from: `${BRAND_NAME} <onboarding@resend.dev>`,
         to: [EMAIL],
         replyTo: email,
         subject: `New Lead Transmission — ${safeName} (${safeProjectType})`,

@@ -15,74 +15,36 @@
 | **Agency Tagline** | *We Build Systems That Work While You Sleep* |
 | **Official Email** | `neweraagents45@gmail.com` |
 | **WhatsApp Support** | `+917078994915` (`https://wa.me/917078994915`) |
-| **Chosen Domain** | **`neweraautomations.com`** (Purchased via Hostinger) |
-| **Target Audience** | B2B E-Commerce, Agencies, HR Firms, High-Ticket Service Businesses |
+| **Chosen Domain** | **`neweraautomations.com`** (Purchased via GoDaddy) |
+| **Hosting Server** | **Vercel (Hobby Free Tier)** |
+| **GitHub Repo** | `neweradesign45/newera-website` (Private) |
 
 ---
 
-## 🛠️ 2. TECH STACK & ARCHITECTURE
+## 🚀 6. COMPLETED DEPLOYMENT & FINAL CONFIGURATION
 
-- **Framework**: Next.js 15 (App Router, React 19)
-- **Styling**: Tailwind CSS + Glassmorphism + Custom CSS Tokens
-- **Animations**: GSAP + Lenis Smooth Scroll (Tuned for 60FPS Desktop & 2GB RAM Mobile)
-- **Form Submissions**: API Route (`/api/collab`) with Resend Email Integration & HTML Sanitization
-- **SEO & PWA**: Dynamic `sitemap.xml`, `robots.txt`, JSON-LD Structured Data, `manifest.ts`
-
----
-
-## 🛡️ 3. SECURITY & ANTI-AI WATERMARK HARDENING
-
-1. **Security Headers (`next.config.ts`)**:
-   - `Strict-Transport-Security`: `max-age=63072000; includeSubDomains; preload`
-   - `X-Frame-Options`: `DENY` (Anti-Clickjacking)
-   - `X-Content-Type-Options`: `nosniff` (Anti-MIME sniffing)
-   - `poweredByHeader`: `false` (Hides Next.js fingerprint from hackers)
-   - `X-XSS-Protection`: `1; mode=block`
-2. **Form Sanitization (`src/app/api/collab/route.ts`)**:
-   - Integrated `escapeHtml()` function to neutralize `<script>` injection / XSS payloads.
-3. **Clean Code Policy**:
-   - Zero AI watermarks, zero `TODO` tags, zero template placeholders.
+- [x] **Domain Purchased**: `neweraautomations.com` registered on GoDaddy.
+- [x] **Security & Anti-AI Audit**: Hardened API route, rate-limiting, CORS, input limits, security headers.
+- [x] **GitHub Code Sync**: Pushed to private repo `neweradesign45/newera-website`.
+- [x] **Vercel Production Deployment**: Successfully deployed and SSL certificate issued.
+- [x] **GoDaddy DNS Records**:
+  - `A` Record `@` → `216.198.79.1`
+  - `CNAME` Record `www` → `9155f94c8ef9e644.vercel-dns-017.com.`
 
 ---
 
-## ⚡ 4. PERFORMANCE & MOBILE 2GB RAM OPTIMIZATIONS
+## 📩 7. RECOMMENDED NEXT STEPS (FOR LEAD ALERTS & GOOGLE RANKING)
 
-- **Lenis Provider (`src/providers/lenis-provider.tsx`)**:
-  - `syncTouch: false` and `touchMultiplier: 1.5` for native GPU momentum scrolling on 2GB RAM budget phones.
-  - `gsap.ticker.lagSmoothing(500, 33)` re-enabled to prevent desktop scroll stuttering.
-  - Removed conflicting CSS `scroll-behavior: smooth` from `globals.css`.
-- **Image Formats**: Enabled AVIF & WebP in `next.config.ts`.
-- **Smart Navbar (`src/components/layout/navbar.tsx`)**:
-  - Auto-hides on scroll down, reappears on scroll up / page top / menu open.
+1. **Lead Email Notifications Setup (Resend API Key)**:
+   - Create a free account at `resend.com` using `neweraagents45@gmail.com`.
+   - Generate an API key (starts with `re_...`).
+   - In Vercel Project Settings → Environment Variables → Add `RESEND_API_KEY`.
+   - *Result*: Whenever a client fills out the "Book a Call" or "Let's Collaborate" form on `neweraautomations.com`, an instant email alert will arrive directly in Krishna's inbox!
 
----
-
-## 📋 5. CORE SECTIONS & FILES IN CODEBASE
-
-- `src/lib/constants.ts` — Central brand constants (`BRAND_NAME`, `EMAIL`, `WHATSAPP_LINK`, `BASE_URL`)
-- `src/components/sections/about/about-me.tsx` — Hero Section with Krishna's portrait, founder badge, and performance stats
-- `src/components/layout/navbar.tsx` — Smart auto-hide floating glass navigation bar
-- `src/components/layout/footer.tsx` — Agency footer with quick links and branding
-- `src/app/api/collab/route.ts` — Contact form intake endpoint
-- `public/sitemap.xml` & `public/robots.txt` — SEO indexing files
-- `src/app/manifest.ts` — Web App Manifest
-
----
-
-## 🚀 6. DEPLOYMENT & VERCEL CHECKLIST
-
-Once Krishna completes the Hostinger domain purchase for `neweraautomations.com`:
-
-1. **Update `constants.ts`**:
-   Set `BASE_URL = "https://neweraautomations.com"`.
-2. **Deploy to Vercel**:
-   - Connect GitHub repository to Vercel.
-   - Add Environment Variable: `RESEND_API_KEY` (from Resend.com for lead email alerts).
-3. **Configure DNS on Hostinger**:
-   - Type: `A` | Name: `@` | Value: `76.76.21.21` (Vercel IP)
-   - Type: `CNAME` | Name: `www` | Value: `cname.vercel-dns.com`
-4. **Google Search Console**:
-   - Verify site ownership and update `verification.google` in `layout.tsx`.
+2. **Google Search Console Indexing**:
+   - Go to Google Search Console → Add Property `https://neweraautomations.com`.
+   - Submit Sitemap: `https://neweraautomations.com/sitemap.xml`.
+   - *Result*: Ranks #1 on Google when clients search for "NewEra Automations".
 
 ---
 *Created and maintained automatically by AI pair-developer.*
