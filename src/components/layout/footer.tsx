@@ -169,6 +169,8 @@ export default function CreativeFooter() {
               { label: "About", href: "#about" },
               { label: "Services", href: "#projects" },
               { label: "Contact", href: "#contact" },
+              { label: "Privacy Policy", href: "/privacy-policy" },
+              { label: "Terms", href: "/terms" },
             ].map((item, i) => (
               <motion.div
                 key={item.label}
