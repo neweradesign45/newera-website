@@ -165,10 +165,10 @@ export default function CreativeFooter() {
               Sitemap
             </h3>
             {[
-              { label: "Home", href: "#hero" },
-              { label: "About", href: "#about" },
-              { label: "Services", href: "#projects" },
-              { label: "Contact", href: "#contact" },
+              { label: "Home", href: "/#hero" },
+              { label: "About", href: "/#about" },
+              { label: "Services", href: "/#projects" },
+              { label: "Contact", href: "/#contact" },
               { label: "Privacy Policy", href: "/privacy-policy" },
               { label: "Terms", href: "/terms" },
             ].map((item, i) => (
