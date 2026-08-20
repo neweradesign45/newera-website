@@ -17,6 +17,15 @@ export default function Home() {
   const handleLoaded = () => {
     setIsLoading(false);
     document.body.style.cursor = "default";
+    // If URL has a hash (e.g. /#about), scroll to that section; otherwise scroll to top
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
+        return;
+      }
+    }
     window.scrollTo(0, 0);
   };
 
