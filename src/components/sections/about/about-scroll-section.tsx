@@ -7,11 +7,11 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// 16 Completely Unique 4K Slides (Zero Duplicates, Zero Crop, 100% Full Title Visibility)
-const ALL_16_SLIDES = [
-  { src: "/scroll-slides/pdf-slide-5.png", alt: "Systems Showcase Cover", type: "canva4k" },
+// 14 Unique Slides + 1 Final About = 15 Total (Zero Duplicates)
+const ALL_14_SLIDES = [
   { src: "/scroll-slides/pdf-slide-1.png", alt: "AI Agent Dashboard", type: "canva4k" },
   { src: "/scroll-slides/pdf-slide-4.png", alt: "Social Profile Extractor", type: "canva4k" },
+  { src: "/scroll-slides/pdf-slide-5.png", alt: "Systems Showcase Cover", type: "canva4k" },
   { src: "/scroll-slides/pdf-slide-2.png", alt: "Multi-Channel Outreach Engine", type: "canva4k" },
   { src: "/scroll-slides/pdf-slide-3.png", alt: "85% Qualified Leads Overview", type: "canva4k" },
   
@@ -22,16 +22,15 @@ const ALL_16_SLIDES = [
   { src: "/workflows/n8n-pipeline-4.png", alt: "Real n8n Automated Outreach Engine", type: "n8n" },
   { src: "/workflows/n8n-pipeline-5.png", alt: "Real n8n Lead Ingestion & CRM Sync", type: "n8n" },
   
-  // 4K Widescreen System Slides (Slides 11 to 15 - All 100% Unique)
+  // 4K Widescreen System Slides (Slides 11 to 14 - All Unique)
   { src: "/scroll-slides/pdf-slide-6.png", alt: "Real-Time CRM Sync Engine", type: "canva4k" },
   { src: "/scroll-slides/pdf-slide-7.png", alt: "24/7 AI Support Agent", type: "canva4k" },
   { src: "/scroll-slides/slide-8.png", alt: "Enterprise Cold Email Infrastructure", type: "canva" },
   { src: "/scroll-slides/slide-9.png", alt: "AI Support Waveform Interface", type: "canva" },
-  { src: "/scroll-slides/slide-1.png", alt: "Master Systems Architecture", type: "canva" },
 ];
 
-const TOTAL_SLIDES = ALL_16_SLIDES.length; // 15 images
-const TOTAL_SLOTS = TOTAL_SLIDES + 1;       // 16 slots (15 slides + Slide 16 Final About)
+const TOTAL_SLIDES = ALL_14_SLIDES.length; // 14 images
+const TOTAL_SLOTS = TOTAL_SLIDES + 1;       // 15 slots (14 slides + Slide 15 Final About)
 const redColor = "oklch(59.71% 0.23 23.86)";
 
 const AboutScrollSection = () => {
@@ -44,7 +43,7 @@ const AboutScrollSection = () => {
 
   // Pre-load all 16 slide images
   useEffect(() => {
-    ALL_16_SLIDES.forEach((slide) => {
+    ALL_14_SLIDES.forEach((slide) => {
       const img = new window.Image();
       img.src = slide.src;
     });
@@ -108,7 +107,7 @@ const AboutScrollSection = () => {
       <div ref={pinWrapperRef} className="relative h-screen w-full overflow-hidden bg-[#0c0d0e]">
         {/* Centered Container with Top Offset Padding (pt-24 md:pt-28) so Navbar NEVER covers top headlines */}
         <div ref={slidesContainerRef} className="absolute inset-0 h-full w-full flex items-center justify-center pt-20 pb-6 px-4 md:pt-24 md:pb-8 md:px-10">
-          {ALL_16_SLIDES.map((slide, idx) => (
+          {ALL_14_SLIDES.map((slide, idx) => (
             <div
               key={idx}
               className={`absolute inset-0 h-full w-full flex items-center justify-center pt-20 pb-8 px-4 md:pt-24 md:pb-12 md:px-12 transition-opacity duration-300 ease-out ${
@@ -129,7 +128,7 @@ const AboutScrollSection = () => {
 
         {/* Slide Counter Badge (Top Right) */}
         <div className="absolute top-20 right-8 z-30 px-4 py-1.5 rounded-full border border-white/20 bg-black/80 backdrop-blur-md text-white font-mono text-xs tracking-widest pointer-events-none shadow-xl">
-          {isFinalSlideActive ? "SLIDE 16 / 16 — ABOUT US" : `SLIDE ${activeSlideIndex + 1} / 16`}
+          {isFinalSlideActive ? "SLIDE 15 / 15 — ABOUT US" : `SLIDE ${activeSlideIndex + 1} / 15`}
         </div>
 
         {/* Scroll Hint */}
@@ -137,7 +136,7 @@ const AboutScrollSection = () => {
           className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1.5 pointer-events-none transition-opacity duration-300"
           style={{ opacity: activeSlideIndex === 0 ? 1 : 0 }}
         >
-          <span className="text-[9px] uppercase font-mono tracking-[0.3em] text-white/70">Scroll To Explore 16 Systems</span>
+          <span className="text-[9px] uppercase font-mono tracking-[0.3em] text-white/70">Scroll To Explore 15 Systems</span>
           <div className="w-4 h-6 border border-white/40 rounded-full flex justify-center p-0.5">
             <div className="w-1 h-1.5 bg-primary rounded-full animate-bounce" />
           </div>

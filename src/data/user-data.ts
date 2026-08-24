@@ -43,28 +43,4 @@ export const userData: UserData[] = [
       val2: "2-3 Hours",
     },
   },
-  {
-    id: "meridian-properties",
-    name: "Rahul Mehta",
-    avatar: "https://api.dicebear.com/7.x/initials/svg?seed=Meridian+Prop&backgroundColor=059669",
-    message:
-      "NewEra built a complete WhatsApp lead qualification system for our real estate firm. Within the first month, our response time dropped from 4 hours to under 2 minutes. The ROI has been incredible.",
-    role: "Director, Meridian Properties",
-  },
-  {
-    id: "shopease",
-    name: "Priya Sharma",
-    avatar: "https://api.dicebear.com/7.x/initials/svg?seed=ShopEase&backgroundColor=7c3aed",
-    message:
-      "We were drowning in support tickets. Their AI auto-resolver handles 70% of queries now without any human touch. Our team finally has time to focus on what actually matters.",
-    role: "Operations Head, ShopEase",
-  },
-  {
-    id: "urbancart",
-    name: "Vikram Singh",
-    avatar: "https://api.dicebear.com/7.x/initials/svg?seed=UrbanCart&backgroundColor=d97706",
-    message:
-      "They didn't just build us a chatbot — they built an entire customer journey automation. Cart recovery, follow-ups, upsells — all running on autopilot. Revenue is up 35%.",
-    role: "E-Commerce Manager, UrbanCart",
-  },
 ];
