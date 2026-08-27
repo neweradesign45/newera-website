@@ -184,5 +184,79 @@ Want to see if we can replicate this for your business? Let's talk.
     category: "Case Studies",
     tags: ["Lead Generation Automation", "Case Study", "Growth"],
     coverImage: "linear-gradient(135deg, oklch(59.71% 0.23 23.86), #000000)"
+  },
+  {
+    slug: "n8n-workflows-replace-ops-manager",
+    title: "How n8n Workflows Replaced a $50k/Year Operations Role",
+    excerpt: "Learn how we built complex n8n automation pipelines to handle multi-inbox sync, data entry, and team notifications without hiring extra staff.",
+    content: `
+## Rethinking Operational Efficiency
+
+In traditional business models, scaling operations meant adding headcount. If you handled 1,000 orders, you needed two people. If you handled 5,000 orders, you needed ten. 
+
+In 2026, **n8n workflows** have flipped this paradigm on its head. 
+
+### What is n8n?
+
+n8n is an extendable workflow automation tool that allows you to connect any app with an API to any other app. Unlike simpler tools like Zapier, n8n offers enterprise-grade data transformation, custom JavaScript execution, and native AI integration with OpenRouter and OpenAI models.
+
+### Real-World Example: Multi-Inbox Sync & Auto-Reply Engine
+
+One of our clients, a prominent SEO consultant, was spending 2-3 hours every single day managing dual inboxes (Gmail and Outlook). Emails were getting lost, follow-ups were delayed, and valuable leads were slipping through the cracks.
+
+We designed a custom **n8n automation pipeline** that:
+1. Listened to incoming messages across all inboxes in real time.
+2. Passed the email body to an AI agent for sentiment analysis and lead classification.
+3. Automatically categorized high-priority client emails and drafted intelligent auto-replies.
+4. Logged all activity into a central dashboard and dispatched over 1,800 outreach emails on complete autopilot.
+
+### The Financial Impact
+
+By automating these processes, our client saved 2-3 hours daily — equivalent to over 70 hours a month. Instead of hiring a full-time operations manager at $50,000/year, the entire system ran for a tiny fraction of the cost with **zero human error**.
+
+If your team is buried in manual data entry or repetitive email management, n8n is the engine you've been waiting for.
+    `,
+    author: "Krishna Prajapati",
+    date: "2026-07-28",
+    readTime: "5 min read",
+    category: "n8n & Workflows",
+    tags: ["n8n Automation", "Workflow Automation", "ROI"],
+    coverImage: "linear-gradient(135deg, #FF6D5A, oklch(59.71% 0.23 23.86))"
+  },
+  {
+    slug: "complete-guide-ai-sales-funnel-2026",
+    title: "The Complete Guide to Building an AI-Powered Sales Funnel in 2026",
+    excerpt: "Step-by-step framework to build a 24/7 autonomous sales funnel that captures, qualifies, and converts leads automatically.",
+    content: `
+## The Death of the Traditional Sales Funnel
+
+The old way of selling is dead. Driving traffic to a static landing page, asking visitors to fill out a 10-field form, and emailing them 3 days later no longer works in 2026. Today's buyers demand instant interaction, instant qualification, and instant value.
+
+An **AI-Powered Sales Funnel** turns your passive website into an active, 24/7 high-converting sales representative.
+
+### The 4 Pillars of an Autonomous AI Sales Funnel
+
+**1. Instant Multi-Channel Capture**
+Whether a prospect lands on your website, DMs you on Instagram, or messages your WhatsApp, your system should capture their information immediately. 
+
+**2. Conversational AI Qualification**
+Instead of static forms, engage visitors with an AI agent. The agent asks contextual questions to determine budget, timeline, and fit. If they qualify, it moves them down the funnel instantly.
+
+**3. Automated Calendar Booking**
+Never force a qualified prospect to wait. Your AI agent presents your team's live calendar right inside the chat window, books the meeting, and sends calendar invites with pre-populated notes.
+
+**4. Predictive Follow-up Sequences**
+If a prospect drops off during the conversation, automated triggers kick in via WhatsApp or email to re-engage them with targeted value propositions based on what they previously discussed.
+
+### Building Your Funnel with NewEra
+
+At NewEra Automations, we engineer end-to-end sales funnels tailored to your ideal customer profile. From lead scraping to AI qualification and CRM synchronization, we build the engine that drives predictable revenue for your business.
+    `,
+    author: "Krishna Prajapati",
+    date: "2026-07-20",
+    readTime: "5 min read",
+    category: "Sales Automation",
+    tags: ["AI Sales Funnel", "Lead Generation", "Conversion Rate"],
+    coverImage: "linear-gradient(135deg, #0284c7, oklch(59.71% 0.23 23.86))"
   }
 ];

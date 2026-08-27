@@ -22,11 +22,22 @@ export function BlogCard({ post, index }: BlogCardProps) {
           {/* Gradient Top Border */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-          {/* Cover Image Placeholder */}
+          {/* Cover Image Container */}
           <div 
-            className="w-full h-48 sm:h-56 transition-transform duration-500 group-hover:scale-105"
+            className="relative w-full h-48 sm:h-56 transition-transform duration-500 group-hover:scale-105 overflow-hidden flex items-center justify-center p-6"
             style={{ background: post.coverImage }}
-          />
+          >
+            {/* Subtle Grid Pattern Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
+            
+            {/* Ambient Center Glow */}
+            <div className="absolute w-24 h-24 bg-primary/30 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+
+            {/* Glowing Brand Icon Badge */}
+            <div className="relative z-10 w-12 h-12 rounded-xl bg-black/60 border border-white/20 backdrop-blur-md flex items-center justify-center text-primary group-hover:border-primary/50 group-hover:scale-110 transition-all duration-300 shadow-xl">
+              <span className="text-lg font-bold font-mono tracking-tighter">NE</span>
+            </div>
+          </div>
 
           {/* Content */}
           <div className="p-6 flex flex-col flex-grow">
