@@ -217,6 +217,11 @@ export default function CreativeFooter() {
                 label="Email"
               />
             </div>
+            {/* Google Preferred Sources Button */}
+            <div className="mt-4">
+              <p className="text-xs text-muted-foreground/60 mb-2">Add us as a preferred source on Google</p>
+              <div google-add-preferred-source-btn data-theme="dark" />
+            </div>
           </motion.div>
         </div>
 

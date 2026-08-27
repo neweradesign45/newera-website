@@ -119,6 +119,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             ))}
           </div>
         </div>
+
+        {/* Google Preferred Sources Button */}
+        <div className="mt-12 p-6 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <p className="text-white/90 font-medium text-sm">Enjoy our insights?</p>
+            <p className="text-white/50 text-xs mt-1">Add us as a preferred source to see more in Google Search & AI.</p>
+          </div>
+          <div google-add-preferred-source-btn data-theme="dark" />
+        </div>
       </article>
 
       {/* Related Posts */}

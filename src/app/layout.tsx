@@ -137,6 +137,8 @@ export default function RootLayout({
 
         <StructuredData />
         <Analytics />
+        {/* Google Preferred Sources — Aug 2026 feature for AI Overviews, Discover & Top Stories */}
+        <script async src="https://news.google.com/swg/js/v1/publisher.js" />
       </head>
       <body
         className={`${poppins.variable} ${cormorantGaramond.variable} antialiased  mx-auto `}
