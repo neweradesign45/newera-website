@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, HelpCircle, Sparkles } from "lucide-react";
 
+import GooglePreferredButton from "@/components/common/google-preferred-button";
+
 interface FAQItem {
   question: string;
   answer: string;
@@ -142,12 +144,8 @@ export default function FAQSection() {
         </div>
 
         {/* Google Preferred Sources Button */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-2xl bg-white/[0.03] border border-white/10">
-          <div>
-            <p className="text-white/90 font-medium text-sm">Love what we do?</p>
-            <p className="text-white/50 text-xs mt-1">Add NewEra as a preferred source to see us more in Google Search & AI results.</p>
-          </div>
-          <div google-add-preferred-source-btn data-theme="dark" />
+        <div className="mt-12">
+          <GooglePreferredButton variant="card" />
         </div>
       </div>
     </section>

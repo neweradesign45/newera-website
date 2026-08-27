@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa6";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { WHATSAPP_LINK, EMAIL, BRAND_NAME } from "@/lib/constants";
+import GooglePreferredButton from "@/components/common/google-preferred-button";
 
 const SocialLink = ({
   href,
@@ -219,8 +220,7 @@ export default function CreativeFooter() {
             </div>
             {/* Google Preferred Sources Button */}
             <div className="mt-4">
-              <p className="text-xs text-muted-foreground/60 mb-2">Add us as a preferred source on Google</p>
-              <div google-add-preferred-source-btn data-theme="dark" />
+              <GooglePreferredButton variant="compact" />
             </div>
           </motion.div>
         </div>
