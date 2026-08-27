@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, HelpCircle, Sparkles } from "lucide-react";
 
-import GooglePreferredButton from "@/components/common/google-preferred-button";
-
 interface FAQItem {
   question: string;
   answer: string;
@@ -143,10 +141,6 @@ export default function FAQSection() {
           })}
         </div>
 
-        {/* Google Preferred Sources Button */}
-        <div className="mt-12">
-          <GooglePreferredButton variant="card" />
-        </div>
       </div>
     </section>
   );
