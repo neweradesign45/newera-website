@@ -11,6 +11,8 @@ import Preloader from "@/components/common/preloader";
 import CollabSec from "@/components/sections/home/collab-section";
 import AboutScrollSection from "@/components/sections/about/about-scroll-section";
 
+import FAQSection from "@/components/sections/home/faq-section";
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -60,6 +62,9 @@ export default function Home() {
 
       {/* Testimonials */}
       <Testimonials />
+
+      {/* Multi-Industry FAQ Section (GEO & SEO Optimized) */}
+      <FAQSection />
 
       {/* Contact Section */}
       <section id="contact" className="w-full scroll-mt-24">
