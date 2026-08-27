@@ -168,6 +168,7 @@ export default function CreativeFooter() {
               { label: "Home", href: "/#hero" },
               { label: "About", href: "/#about" },
               { label: "Services", href: "/#projects" },
+              { label: "Blog", href: "/blog" },
               { label: "Contact", href: "/#contact" },
               { label: "Privacy Policy", href: "/privacy-policy" },
               { label: "Terms", href: "/terms" },

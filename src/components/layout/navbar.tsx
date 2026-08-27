@@ -8,9 +8,10 @@ import { motion, useAnimate, AnimatePresence } from "framer-motion";
 import { EMAIL } from "@/lib/constants";
 
 const navLinks = [
-  { name: "Services", href: "#projects", label: "What We Build" },
-  { name: "Contact", href: "#contact", label: "Get In Touch" },
-  { name: "About", href: "#about", label: "Who We Are" },
+  { name: "Services", href: "/#projects", label: "What We Build" },
+  { name: "Blog", href: "/blog", label: "Insights & Guides" },
+  { name: "About", href: "/#about", label: "Who We Are" },
+  { name: "Contact", href: "/#contact", label: "Get In Touch" },
 ];
 
 const socialLinks = [
