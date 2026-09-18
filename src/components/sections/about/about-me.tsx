@@ -88,23 +88,20 @@ const AboutMe = () => {
         </motion.div>
       </div>
 
-      {/* Mobile: Vertical Side Label */}
+      {/* Mobile: Clean Centered Expertise Bar */}
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="md:hidden absolute left-3 top-1/2 -translate-y-1/2 z-30 text-white"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+        className="md:hidden relative z-30 w-full px-2 text-center mt-4"
       >
-        <div className="flex items-center gap-4 [writing-mode:vertical-rl] rotate-180">
-          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/60">
-            Our Expertise
-          </span>
+        <div className="inline-flex flex-wrap items-center justify-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-white/50">Core:</span>
+          <span className="text-[11px] font-semibold text-white">AI Automation</span>
           <span className="w-1 h-1 bg-primary rounded-full" />
-          <span className="text-xs font-bold">AI Automation</span>
+          <span className="text-[11px] font-semibold text-white">Workflow Design</span>
           <span className="w-1 h-1 bg-primary rounded-full" />
-          <span className="text-xs font-bold">Workflow Design</span>
-          <span className="w-1 h-1 bg-primary rounded-full" />
-          <span className="text-xs font-bold">Business Growth</span>
+          <span className="text-[11px] font-semibold text-white">Growth Systems</span>
         </div>
       </motion.div>
 

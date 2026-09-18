@@ -7,30 +7,21 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// 14 Unique Slides + 1 Final About = 15 Total (Zero Duplicates)
-const ALL_14_SLIDES = [
-  { src: "/scroll-slides/pdf-slide-1.png", alt: "AI Agent Dashboard", type: "canva4k" },
-  { src: "/scroll-slides/pdf-slide-4.png", alt: "Social Profile Extractor", type: "canva4k" },
-  { src: "/scroll-slides/pdf-slide-5.png", alt: "Systems Showcase Cover", type: "canva4k" },
-  { src: "/scroll-slides/pdf-slide-2.png", alt: "Multi-Channel Outreach Engine", type: "canva4k" },
-  { src: "/scroll-slides/pdf-slide-3.png", alt: "85% Qualified Leads Overview", type: "canva4k" },
-  
-  // Real n8n Workflow Screenshots (Slides 6 to 10)
-  { src: "/workflows/n8n-pipeline-1.png", alt: "Real n8n Social Lead & Hashtag Scraper", type: "n8n" },
-  { src: "/workflows/n8n-pipeline-2.png", alt: "Real n8n Async Profile Scraping Engine", type: "n8n" },
-  { src: "/workflows/n8n-pipeline-3.png", alt: "Real n8n AI Agent Lead Scoring", type: "n8n" },
-  { src: "/workflows/n8n-pipeline-4.png", alt: "Real n8n Automated Outreach Engine", type: "n8n" },
-  { src: "/workflows/n8n-pipeline-5.png", alt: "Real n8n Lead Ingestion & CRM Sync", type: "n8n" },
-  
-  // 4K Widescreen System Slides (Slides 11 to 14 - All Unique)
-  { src: "/scroll-slides/pdf-slide-6.png", alt: "Real-Time CRM Sync Engine", type: "canva4k" },
-  { src: "/scroll-slides/pdf-slide-7.png", alt: "24/7 AI Support Agent", type: "canva4k" },
-  { src: "/scroll-slides/slide-8.png", alt: "Enterprise Cold Email Infrastructure", type: "canva" },
-  { src: "/scroll-slides/slide-9.png", alt: "AI Support Waveform Interface", type: "canva" },
+// 9 High-Impact System Slides + 1 Final About Screen = 10 Total Slots (Zero Redundancy)
+const SYSTEM_SLIDES = [
+  { src: "/scroll-slides/pdf-slide-1.png", alt: "AI Agent Dashboard" },
+  { src: "/scroll-slides/pdf-slide-4.png", alt: "Social Profile Extractor" },
+  { src: "/scroll-slides/pdf-slide-5.png", alt: "Systems Showcase Cover" },
+  { src: "/scroll-slides/pdf-slide-2.png", alt: "Multi-Channel Outreach Engine" },
+  { src: "/scroll-slides/pdf-slide-3.png", alt: "85% Qualified Leads Overview" },
+  { src: "/scroll-slides/pdf-slide-6.png", alt: "Real-Time CRM Sync Engine" },
+  { src: "/scroll-slides/pdf-slide-7.png", alt: "24/7 AI Support Agent" },
+  { src: "/scroll-slides/slide-8.png", alt: "Enterprise Cold Email Infrastructure" },
+  { src: "/scroll-slides/slide-9.png", alt: "AI Support Waveform Interface" },
 ];
 
-const TOTAL_SLIDES = ALL_14_SLIDES.length; // 14 images
-const TOTAL_SLOTS = TOTAL_SLIDES + 1;       // 15 slots (14 slides + Slide 15 Final About)
+const TOTAL_SLIDES = SYSTEM_SLIDES.length; // 9 images
+const TOTAL_SLOTS = TOTAL_SLIDES + 1;       // 10 slots (9 slides + Slide 10 Final About)
 const redColor = "oklch(59.71% 0.23 23.86)";
 
 const AboutScrollSection = () => {
@@ -41,9 +32,9 @@ const AboutScrollSection = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isFinalSlideActive, setIsFinalSlideActive] = useState(false);
 
-  // Pre-load all 16 slide images
+  // Lightweight pre-load: only first 2 slides on mount to preserve memory & 60fps
   useEffect(() => {
-    ALL_14_SLIDES.forEach((slide) => {
+    SYSTEM_SLIDES.slice(0, 2).forEach((slide) => {
       const img = new window.Image();
       img.src = slide.src;
     });
@@ -62,19 +53,19 @@ const AboutScrollSection = () => {
           start: "top top",
           end: "bottom bottom",
           pin: pinWrapperRef.current,
-          scrub: 0.35,
+          scrub: 0.2, // Snappy GPU-accelerated response
           onUpdate: (self) => {
             const p = self.progress; // 0.0 to 1.0
 
-            // Symmetrical Bi-Directional Index Calculation (Scroll Down & Scroll Up)
+            // Symmetrical Bi-Directional Index Calculation
             const idx = Math.min(
               Math.floor(p * TOTAL_SLOTS),
               TOTAL_SLOTS - 1
             );
             setActiveSlideIndex(idx);
 
-            // Slide 16 Final About Screen triggers ONLY on the last slot (idx >= 15 or progress >= 0.93)
-            if (idx >= TOTAL_SLIDES || p >= 0.93) {
+            // Final About Screen triggers smoothly on the last slot
+            if (idx >= TOTAL_SLIDES || p >= 0.88) {
               setIsFinalSlideActive(true);
             } else {
               setIsFinalSlideActive(false);
@@ -91,11 +82,11 @@ const AboutScrollSection = () => {
           {
             opacity: 1,
             y: 0,
-            duration: 0.5,
-            stagger: 0.12,
+            duration: 0.4,
+            stagger: 0.1,
             ease: "power2.out",
           },
-          0.93
+          0.88
         );
       }
     },
@@ -103,24 +94,24 @@ const AboutScrollSection = () => {
   );
 
   return (
-    <div ref={sectionRef} className="relative w-full bg-[#0c0d0e]" style={{ height: `${TOTAL_SLOTS * 45}vh` }}>
+    <div ref={sectionRef} className="relative w-full bg-[#0c0d0e]" style={{ height: `${TOTAL_SLOTS * 30}vh` }}>
       <div ref={pinWrapperRef} className="relative h-screen w-full overflow-hidden bg-[#0c0d0e]">
-        {/* Centered Container with Top Offset Padding (pt-24 md:pt-28) so Navbar NEVER covers top headlines */}
+        {/* Centered Container with Top Offset Padding so Navbar NEVER covers top headlines */}
         <div ref={slidesContainerRef} className="absolute inset-0 h-full w-full flex items-center justify-center pt-20 pb-6 px-4 md:pt-24 md:pb-8 md:px-10">
-          {ALL_14_SLIDES.map((slide, idx) => (
+          {SYSTEM_SLIDES.map((slide, idx) => (
             <div
               key={idx}
-              className={`absolute inset-0 h-full w-full flex items-center justify-center pt-20 pb-8 px-4 md:pt-24 md:pb-12 md:px-12 transition-opacity duration-300 ease-out ${
-                activeSlideIndex === idx ? "opacity-100 z-10" : "opacity-0 z-0"
+              className={`absolute inset-0 h-full w-full flex items-center justify-center pt-20 pb-8 px-4 md:pt-24 md:pb-12 md:px-12 transition-opacity duration-200 ease-out ${
+                activeSlideIndex === idx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={slide.src}
                 alt={slide.alt}
-                decoding="sync"
-                loading="eager"
-                className="max-h-full max-w-full object-contain object-center select-none rounded-xl shadow-2xl mx-auto"
+                decoding="async"
+                loading={idx < 2 ? "eager" : "lazy"}
+                className="max-h-full max-w-full object-contain object-center select-none rounded-xl shadow-2xl mx-auto will-change-transform"
               />
             </div>
           ))}
@@ -128,7 +119,7 @@ const AboutScrollSection = () => {
 
         {/* Slide Counter Badge (Top Right) */}
         <div className="absolute top-20 right-8 z-30 px-4 py-1.5 rounded-full border border-white/20 bg-black/80 backdrop-blur-md text-white font-mono text-xs tracking-widest pointer-events-none shadow-xl">
-          {isFinalSlideActive ? "SLIDE 15 / 15 — ABOUT US" : `SLIDE ${activeSlideIndex + 1} / 15`}
+          {isFinalSlideActive ? "SLIDE 10 / 10 — ABOUT US" : `SLIDE ${activeSlideIndex + 1} / 10`}
         </div>
 
         {/* Scroll Hint */}
@@ -136,7 +127,7 @@ const AboutScrollSection = () => {
           className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1.5 pointer-events-none transition-opacity duration-300"
           style={{ opacity: activeSlideIndex === 0 ? 1 : 0 }}
         >
-          <span className="text-[9px] uppercase font-mono tracking-[0.3em] text-white/70">Scroll To Explore 15 Systems</span>
+          <span className="text-[9px] uppercase font-mono tracking-[0.3em] text-white/70">Scroll To Explore 10 Systems</span>
           <div className="w-4 h-6 border border-white/40 rounded-full flex justify-center p-0.5">
             <div className="w-1 h-1.5 bg-primary rounded-full animate-bounce" />
           </div>
