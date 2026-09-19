@@ -171,6 +171,7 @@ export default function CreativeFooter() {
               { label: "n8n Automation", href: "/n8n-automation" },
               { label: "WhatsApp Automation", href: "/whatsapp-automation" },
               { label: "AI Agents", href: "/ai-agents" },
+              { label: "CRM Automation", href: "/crm-automation" },
               { label: "Blog", href: "/blog" },
               { label: "Contact", href: "/#contact" },
               { label: "Privacy Policy", href: "/privacy-policy" },
