@@ -3,6 +3,7 @@ import { blogPosts } from "@/data/blog-data";
 import { BlogCard } from "@/components/blog/blog-card";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import GooglePreferredButton from "@/components/common/google-preferred-button";
 
 export const metadata: Metadata = {
   title: "Blog & Insights | NewEra Automations",
@@ -37,6 +38,11 @@ export default function BlogPage() {
             <BlogCard key={post.slug} post={post} index={index} />
           ))}
         </div>
+      </section>
+
+      {/* Google Preferred Sources Banner */}
+      <section className="px-6 max-w-5xl mx-auto mt-16">
+        <GooglePreferredButton variant="card" />
       </section>
 
       {/* CTA Section */}

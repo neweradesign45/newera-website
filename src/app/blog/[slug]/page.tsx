@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, ArrowRight } from "lucide-react";
 import { blogPosts } from "@/data/blog-data";
 import { BlogCard } from "@/components/blog/blog-card";
+import GooglePreferredButton from "@/components/common/google-preferred-button";
 
 interface BlogPostPageProps {
   params: {
@@ -118,6 +119,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               </span>
             ))}
           </div>
+        </div>
+
+        {/* Google Preferred Sources Follow Card */}
+        <div className="mt-10">
+          <GooglePreferredButton variant="card" />
         </div>
 
       </article>
