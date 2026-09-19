@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Timeline } from "@/components/ui/timeline";
 import PhraseAnimation from "@/components/common/phrase-reveal";
 import {
@@ -90,6 +91,15 @@ export function TimelineDemo() {
               features={["1,800+ Emails", "Dual Inbox (Gmail/Outlook)", "2-3h Saved Daily", "n8n Workflow"]}
               caseStudyBadge="SEO Consultant Case Study"
             />
+          </div>
+          <div className="mt-4 flex justify-end">
+            <Link
+              href="/case-studies"
+              className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1.5 transition-colors"
+            >
+              <span>Read Full Technical Case Studies & Diagrams</span>
+              <span>→</span>
+            </Link>
           </div>
         </div>
       ),

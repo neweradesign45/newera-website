@@ -102,12 +102,17 @@ const AboutMe = () => {
         className="md:hidden relative z-30 w-full px-2 text-center mt-4"
       >
         <div className="inline-flex flex-wrap items-center justify-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-white/50">Core:</span>
-          <span className="text-[11px] font-semibold text-white">AI Automation</span>
+          <Link href="/ai-agents" className="text-[11px] font-semibold text-white hover:text-primary transition-colors">
+            AI Agents
+          </Link>
           <span className="w-1 h-1 bg-primary rounded-full" />
-          <span className="text-[11px] font-semibold text-white">Workflow Design</span>
+          <Link href="/n8n-automation" className="text-[11px] font-semibold text-white hover:text-primary transition-colors">
+            n8n Workflows
+          </Link>
           <span className="w-1 h-1 bg-primary rounded-full" />
-          <span className="text-[11px] font-semibold text-white">Growth Systems</span>
+          <Link href="/whatsapp-automation" className="text-[11px] font-semibold text-white hover:text-primary transition-colors">
+            WhatsApp AI
+          </Link>
         </div>
       </motion.div>
 
@@ -123,17 +128,21 @@ const AboutMe = () => {
             What We Build
           </p>
           <div className="flex items-center gap-4 text-xs font-semibold">
-            <span className="hover:text-primary transition-colors cursor-pointer">
+            <Link href="/ai-agents" className="hover:text-primary transition-colors cursor-pointer">
               AI Agents
-            </span>
+            </Link>
             <span className="w-1 h-1 bg-primary rounded-full" />
-            <span className="hover:text-primary transition-colors cursor-pointer">
-              Smart Workflows
-            </span>
+            <Link href="/n8n-automation" className="hover:text-primary transition-colors cursor-pointer">
+              n8n Workflows
+            </Link>
             <span className="w-1 h-1 bg-primary rounded-full" />
-            <span className="hover:text-primary transition-colors cursor-pointer">
-              Growth Systems
-            </span>
+            <Link href="/whatsapp-automation" className="hover:text-primary transition-colors cursor-pointer">
+              WhatsApp AI
+            </Link>
+            <span className="w-1 h-1 bg-primary rounded-full" />
+            <Link href="/crm-automation" className="hover:text-primary transition-colors cursor-pointer">
+              CRM Pipelines
+            </Link>
           </div>
         </div>
 
