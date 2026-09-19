@@ -9,6 +9,7 @@ import { EMAIL } from "@/lib/constants";
 
 const navLinks = [
   { name: "Services", href: "/#projects", label: "What We Build" },
+  { name: "Case Studies", href: "/case-studies", label: "Verified Results" },
   { name: "n8n Automation", href: "/n8n-automation", label: "Enterprise Pipelines" },
   { name: "Blog", href: "/blog", label: "Insights & Guides" },
   { name: "About", href: "/#about", label: "Who We Are" },
