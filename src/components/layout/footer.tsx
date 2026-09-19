@@ -169,6 +169,7 @@ export default function CreativeFooter() {
               { label: "About", href: "/#about" },
               { label: "Services", href: "/#projects" },
               { label: "n8n Automation", href: "/n8n-automation" },
+              { label: "WhatsApp Automation", href: "/whatsapp-automation" },
               { label: "Blog", href: "/blog" },
               { label: "Contact", href: "/#contact" },
               { label: "Privacy Policy", href: "/privacy-policy" },
