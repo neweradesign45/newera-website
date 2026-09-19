@@ -28,19 +28,22 @@ const AboutMe = () => {
       <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-primary/15 rounded-full blur-[160px] pointer-events-none" />
 
-      {/* Top Founder Identity Tag */}
+      {/* Top Agency Commercial Identity */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative z-30 text-center max-w-2xl mx-auto mb-4"
+        className="relative z-30 text-center max-w-3xl mx-auto mb-4"
       >
         <span className="text-[11px] font-mono uppercase tracking-[0.35em] text-primary px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 inline-block mb-3 shadow-lg">
-          ✦ {FOUNDER_NAME} ✦
+          ✦ AI AUTOMATION AGENCY ✦
         </span>
-        <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-white">
-          Founder &amp; Chief Automation Architect
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight mb-3">
+          AI Automation Agency for High-Growth Businesses
         </h1>
+        <p className="text-sm md:text-base text-white/75 max-w-xl mx-auto leading-relaxed">
+          We architect autonomous AI agents, production-grade n8n workflows, and lead qualification engines that eliminate operational drag 24/7.
+        </p>
       </motion.div>
 
       {/* Main Center Founder Portrait Card with Floating Stat Badges */}
@@ -74,15 +77,18 @@ const AboutMe = () => {
           <img
             src="/hero-founder.png"
             alt={`${FOUNDER_NAME} - ${BRAND_NAME}`}
-            decoding="sync"
+            decoding="async"
             loading="eager"
             className="w-full h-auto max-h-[520px] object-cover object-top select-none transition-transform duration-500 group-hover:scale-[1.02]"
           />
 
           {/* Bottom Card Title Banner */}
-          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/80 to-transparent p-5 text-center">
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-white/90 font-semibold">
-              NewEra Automations
+          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/90 to-transparent p-5 text-center">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-white font-semibold block">
+              {FOUNDER_NAME}
+            </span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-primary/90 mt-0.5 block">
+              Founder &amp; Automation Architect
             </span>
           </div>
         </motion.div>

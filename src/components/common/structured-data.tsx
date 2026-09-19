@@ -8,22 +8,25 @@ export default function StructuredData() {
     url: BASE_URL,
     image: OG_IMAGE,
     description:
-      "AI automation agency building intelligent workflows, chatbots, and lead generation systems for businesses.",
+      "AI automation agency engineering autonomous AI agents, production n8n workflow automation, and CRM lead engines that scale business operations.",
     founder: {
       "@type": "Person",
       name: "Krishna Prajapati",
+      jobTitle: "Founder & Chief Automation Architect",
     },
     sameAs: [
       "https://wa.me/917078994915",
     ],
     knowsAbout: [
-      "AI Automation",
-      "Workflow Design",
-      "WhatsApp Chatbots",
-      "Lead Generation",
-      "Cold Email Infrastructure",
-      "n8n Pipelines",
+      "AI Automation Agency",
+      "AI Agent Development",
+      "n8n Workflow Automation",
       "Business Process Automation",
+      "Custom AI Agents",
+      "CRM Automation",
+      "Lead Qualification Automation",
+      "WhatsApp Automation",
+      "Multi-Channel Outreach Pipelines",
     ],
   };
 

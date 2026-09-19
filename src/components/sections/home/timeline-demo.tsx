@@ -69,11 +69,11 @@ export function TimelineDemo() {
       title: "Featured Case Studies",
       content: (
         <div>
-          <h3 className="text-xs font-normal text-neutral-800 md:text-3xl dark:text-neutral-200">
-            <PhraseAnimation phrase="Verified  Client  Outcomes" />
-          </h3>
-          <p className="mb-8 text-xs text-muted-foreground md:text-lg mt-1.5">
-            <PhraseAnimation phrase="Real enterprise automation deployment results built by NewEra Automations." />
+          <h2 className="text-lg font-bold text-neutral-900 md:text-3xl dark:text-neutral-100">
+            <PhraseAnimation phrase="AI  Automation  Case  Studies" />
+          </h2>
+          <p className="mb-8 text-xs text-muted-foreground md:text-base mt-1.5">
+            <PhraseAnimation phrase="Verified operational automation systems engineered and deployed by NewEra Automations." />
           </p>
           <div className="grid gap-4 md:grid-cols-2">
             <WorkflowCard

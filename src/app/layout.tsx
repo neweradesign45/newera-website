@@ -28,21 +28,23 @@ const cormorantGaramond = Cormorant_Garamond({
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "NewEra Automations — AI Agents & Workflow Automation Agency",
+    default: "NewEra Automations — AI Automation Agency & Intelligent AI Agents",
     template: "%s | NewEra Automations",
   },
   description:
-    "We build AI agents, smart workflows, and automation systems that help businesses capture leads, recover revenue, and scale operations — without hiring more people.",
+    "NewEra Automations is an AI automation agency engineering autonomous AI agents, production n8n workflow automation, and CRM lead engines that scale business operations.",
   keywords: [
     "AI Automation Agency",
-    "WhatsApp Chatbot",
-    "Lead Qualification",
-    "Workflow Automation",
-    "n8n Automation",
-    "AI Agents India",
-    "Cold Email Infrastructure",
-    "E-Commerce Cart Recovery",
-    "Business Automation",
+    "AI Agent Development",
+    "n8n Automation Agency",
+    "n8n Workflow Automation",
+    "Business Process Automation",
+    "Custom AI Agents",
+    "AI Workflow Automation",
+    "CRM Automation",
+    "Lead Qualification Automation",
+    "WhatsApp Automation",
+    "Sales Automation",
     "NewEra Automations",
   ],
   authors: [{ name: "Krishna Prajapati" }],
@@ -57,25 +59,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: BASE_URL,
-    title: "NewEra Automations — AI Agents & Workflow Automation Agency",
+    title: "NewEra Automations — AI Automation Agency & Intelligent AI Agents",
     description:
-      "We build AI agents, smart workflows, and automation systems that help businesses capture leads, recover revenue, and scale operations.",
+      "NewEra Automations is an AI automation agency engineering autonomous AI agents, production n8n workflow automation, and CRM lead engines that scale business operations.",
     siteName: "NewEra Automations",
     images: [
       {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "NewEra Automations — AI Agents & Workflow Automation",
+        alt: "NewEra Automations — AI Automation Agency",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NewEra Automations — AI Agents & Workflow Automation Agency",
+    title: "NewEra Automations — AI Automation Agency & Intelligent AI Agents",
     description:
-      "We build AI agents, smart workflows, and automation systems that help businesses capture leads, recover revenue, and scale operations.",
+      "NewEra Automations is an AI automation agency engineering autonomous AI agents, production n8n workflow automation, and CRM lead engines.",
     creator: "@neweraagents",
     images: [
       {
