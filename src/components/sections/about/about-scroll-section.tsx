@@ -232,8 +232,8 @@ const AboutScrollSection = () => {
                   <div className="text-[11px] font-mono uppercase tracking-wider text-white/60 mt-1">Execution Uptime</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-emerald-400 tracking-tight">0%</div>
-                  <div className="text-[11px] font-mono uppercase tracking-wider text-white/60 mt-1">Bounce Lead Verification</div>
+                  <div className="text-3xl font-bold text-emerald-400 tracking-tight">100%</div>
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-white/60 mt-1">Lead Verification Rate</div>
                 </div>
               </div>
 
