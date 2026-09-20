@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,7 +13,8 @@ type Props = {
 
 /**
  * High-Performance Lenis-GSAP Synchronization Engine.
- * Configured for 60FPS desktop smooth scrolling & zero-lag 2GB RAM mobile performance.
+ * Desktop: Butter-smooth 60FPS inertial scroll.
+ * Mobile: 100% native compositor hardware scroll (Zero JS lag, zero touch delay).
  */
 function LenisGsapSync() {
   const lenis = useLenis();
@@ -30,7 +31,7 @@ function LenisGsapSync() {
     };
     gsap.ticker.add(raf);
 
-    // Re-enable lagSmoothing for buttery smooth recovery on frame drops
+    // Smooth recovery on frame drops
     gsap.ticker.lagSmoothing(500, 33);
 
     return () => {
@@ -43,19 +44,37 @@ function LenisGsapSync() {
 }
 
 const LenisWrapper = ({ children }: Props) => {
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const checkTouch = () => {
+      setIsTouchDevice(
+        window.innerWidth < 768 ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0
+      );
+    };
+    checkTouch();
+    window.addEventListener("resize", checkTouch);
+    return () => window.removeEventListener("resize", checkTouch);
+  }, []);
+
+  // On touch/mobile devices, use native GPU-composited scrolling (0ms lag, 100% fluid)
+  if (isTouchDevice) {
+    return <>{children}</>;
+  }
+
   return (
     <ReactLenis
       root
       autoRaf={false}
       options={{
-        duration: 1.2,
+        duration: 1.0,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
         wheelMultiplier: 1.0,
-        touchMultiplier: 1.5,
-        syncTouch: false, // Ensures native 60fps GPU-accelerated touch on low-end 2GB RAM mobiles
       }}
     >
       <LenisGsapSync />

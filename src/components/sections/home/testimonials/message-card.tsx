@@ -3,6 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Quote } from "lucide-react";
+import Link from "next/link";
 
 interface MessageCardProps {
   message: string;
@@ -103,6 +104,17 @@ export const MessageCard = ({
           <blockquote className="relative z-10 mt-4 text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
             &quot;{message}&quot;
           </blockquote>
+
+          {/* Direct Link to Verified Case Studies */}
+          <div className="relative z-10 mt-4 pt-3 border-t border-border/30">
+            <Link
+              href="/case-studies"
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-primary hover:text-primary/80 transition-colors"
+            >
+              <span>Read Full Technical Case Study</span>
+              <span>→</span>
+            </Link>
+          </div>
         </div>
       </figure>
 

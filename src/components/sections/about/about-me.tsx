@@ -24,9 +24,8 @@ const AboutMe = () => {
       ref={containerRef}
       className="relative min-h-screen w-full bg-[#0c0d0e] text-white overflow-hidden flex flex-col items-center justify-between pt-28 pb-10 px-6"
     >
-      {/* Background Noise & Ambient Radial Glow */}
-      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-primary/15 rounded-full blur-[160px] pointer-events-none" />
+      {/* Background Ambient Radial Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Top Agency Commercial Identity */}
       <motion.div
@@ -44,6 +43,23 @@ const AboutMe = () => {
         <p className="text-sm md:text-base text-white/75 max-w-xl mx-auto leading-relaxed">
           We architect autonomous AI agents, production-grade n8n workflows, and lead qualification engines that eliminate operational drag 24/7.
         </p>
+
+        {/* High-Converting Hero CTA Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mt-5">
+          <Link
+            href="/#contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold text-xs tracking-wider uppercase shadow-lg shadow-primary/25 hover:bg-primary/90 transition-all hover:scale-[1.02] cursor-pointer"
+          >
+            <span>Book Free 15-Min Audit</span>
+            <span>→</span>
+          </Link>
+          <Link
+            href="/case-studies"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/20 bg-white/5 text-white/90 font-semibold text-xs tracking-wider uppercase hover:bg-white/10 transition-all cursor-pointer"
+          >
+            <span>View Case Studies</span>
+          </Link>
+        </div>
       </motion.div>
 
       {/* Main Center Founder Portrait Card with Floating Stat Badges */}
@@ -52,16 +68,16 @@ const AboutMe = () => {
         {/* Left Floating Stat Card */}
         <StatCard
           position="hidden lg:block left-4 top-1/3 -translate-y-1/2"
-          value="100%"
-          label="Autonomous AI Workflows"
+          value="24/7"
+          label="Autonomous Execution"
           delay={0.4}
         />
 
         {/* Right Floating Stat Card */}
         <StatCard
           position="hidden lg:block right-4 top-1/3 -translate-y-1/2"
-          value="<200ms"
-          label="Execution Latency"
+          value="<500ms"
+          label="Webhook Trigger Speed"
           delay={0.6}
         />
 

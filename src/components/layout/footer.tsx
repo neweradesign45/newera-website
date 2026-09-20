@@ -82,24 +82,9 @@ export default function CreativeFooter() {
   return (
     <footer className="relative w-full overflow-hidden border-t pt-20 md:pt-32 pb-10">
       {/* --- BACKGROUND EFFECTS --- */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 opacity-[0.03] mix-blend-hard-light"></div>
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 10, -10, 0],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-1/2 left-1/4 h-[500px] w-[500px] rounded-full bg-primary/20 blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            x: [-50, 50, -50],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-1/4 right-1/4 h-[400px] w-[400px] rounded-full bg-primary/30 blur-[100px]"
-        />
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-1/2 left-1/4 h-[500px] w-[500px] rounded-full bg-primary/10 blur-[100px] pointer-events-none" />
+        <div className="absolute -bottom-1/4 right-1/4 h-[400px] w-[400px] rounded-full bg-primary/15 blur-[90px] pointer-events-none" />
       </div>
 
       {/* --- CONTENT CONTAINER --- */}

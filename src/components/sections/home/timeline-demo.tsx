@@ -26,43 +26,52 @@ const WorkflowCard = ({
   description: string;
   features: string[];
   caseStudyBadge?: string;
-}) => (
-  <div className="group relative rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-6 hover:border-primary/30 hover:bg-white/[0.04] transition-all duration-500 flex flex-col justify-between">
-    <div>
-      {caseStudyBadge && (
-        <div className="mb-3 flex justify-start">
-          <span className="text-[10px] uppercase font-mono px-2.5 py-0.5 rounded-full border border-primary/40 bg-primary/10 text-primary font-bold">
-            {caseStudyBadge}
-          </span>
-        </div>
-      )}
-      <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-          <Icon className="w-6 h-6 text-primary" />
-        </div>
-        <div className="flex-1">
-          <h4 className="text-base md:text-lg font-semibold text-foreground mb-2 leading-snug">
-            {title}
-          </h4>
-          <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-            {description}
-          </p>
+}) => {
+  const isVerifiedClient = caseStudyBadge?.includes("Verified Client");
+  return (
+    <div className="group relative rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-6 hover:border-primary/30 hover:bg-white/[0.04] transition-all duration-500 flex flex-col justify-between">
+      <div>
+        {caseStudyBadge && (
+          <div className="mb-3 flex justify-start">
+            <span
+              className={`text-[10px] uppercase font-mono px-2.5 py-0.5 rounded-full border ${
+                isVerifiedClient
+                  ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400 font-bold shadow-sm"
+                  : "border-white/15 bg-white/5 text-white/70 font-medium"
+              }`}
+            >
+              {caseStudyBadge}
+            </span>
+          </div>
+        )}
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+            <Icon className="w-6 h-6 text-primary" />
+          </div>
+          <div className="flex-1">
+            <h4 className="text-base md:text-lg font-semibold text-foreground mb-2 leading-snug">
+              {title}
+            </h4>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              {description}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5">
-      {features.map((feature, i) => (
-        <span
-          key={i}
-          className="text-[11px] px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03] text-muted-foreground"
-        >
-          {feature}
-        </span>
-      ))}
+      <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5">
+        {features.map((feature, i) => (
+          <span
+            key={i}
+            className="text-[11px] px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03] text-muted-foreground"
+          >
+            {feature}
+          </span>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export function TimelineDemo() {
   const data = [
@@ -82,14 +91,14 @@ export function TimelineDemo() {
               title="GT Atelier (London Slow Fashion)"
               description="Automated UK fashion influencer lead scraper & outreach. Scraped 439 quality leads, 189 verified emails, and delivered positive influencer responses in 7 days."
               features={["439 Leads", "189 Emails", "7 Days Delivery", "Google Sheets Approval"]}
-              caseStudyBadge="London Case Study"
+              caseStudyBadge="✓ Verified Client Deployment • UK"
             />
             <WorkflowCard
               icon={IconSearch}
               title="Pradeep Kumar (SEO Consultant)"
               description="Dual inbox automation combining Gmail + Outlook with 24/7 smart auto-replies. Sent 1,800+ outreach emails on autopilot and saved 2-3 hours daily."
               features={["1,800+ Emails", "Dual Inbox (Gmail/Outlook)", "2-3h Saved Daily", "n8n Workflow"]}
-              caseStudyBadge="SEO Consultant Case Study"
+              caseStudyBadge="✓ Verified Client Deployment • India"
             />
           </div>
           <div className="mt-4 flex justify-end">
@@ -120,12 +129,14 @@ export function TimelineDemo() {
               title="WhatsApp Lead Qualifier"
               description="AI agent that instantly responds to WhatsApp inquiries, asks qualifying questions, scores leads, and routes hot prospects directly to your sales team."
               features={["Auto-Response", "Lead Scoring", "CRM Sync", "24/7 Active"]}
+              caseStudyBadge="⚙ Architecture Blueprint & Demo"
             />
             <WorkflowCard
               icon={IconMail}
               title="Cold Email Infrastructure"
               description="Full-stack cold outreach system with domain warm-up, email verification, personalized sequences, and automated follow-ups that land in the inbox."
               features={["Domain Warm-up", "Email Verification", "Auto Follow-up", "Analytics"]}
+              caseStudyBadge="⚙ Architecture Blueprint & Demo"
             />
           </div>
         </div>
@@ -147,18 +158,21 @@ export function TimelineDemo() {
               title="AI Support Auto-Resolver"
               description="Intelligent support agent trained on your knowledge base. Resolves common queries instantly, escalates complex issues with full context."
               features={["Knowledge Base AI", "Smart Escalation", "Multi-Channel"]}
+              caseStudyBadge="⚙ Architecture Blueprint & Demo"
             />
             <WorkflowCard
               icon={IconShoppingCart}
               title="E-Commerce Cart Recovery"
               description="Multi-touch recovery system detecting abandoned carts and triggering personalized WhatsApp & email follow-ups."
               features={["Cart Detection", "WhatsApp Nudge", "Discount Engine"]}
+              caseStudyBadge="⚙ Architecture Blueprint & Demo"
             />
             <WorkflowCard
               icon={IconHome}
               title="Real Estate Booking Agent"
               description="Automated site visit scheduling, property matching, and follow-up sequences for real estate agencies."
               features={["Auto Scheduling", "Property Match", "Follow-ups"]}
+              caseStudyBadge="⚙ Architecture Blueprint & Demo"
             />
           </div>
         </div>

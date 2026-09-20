@@ -14,7 +14,7 @@ const faqs: FAQItem[] = [
   {
     category: "Industries & Flexibility",
     question: "Which industries does NewEra Automations build AI systems for?",
-    answer: "We design custom AI agents and workflow automations for EVERY industry — including Real Estate, E-Commerce, SaaS, Healthcare, Education, Legal, Financial Services, Logistics, Digital Agencies, and Local Services. Whether you run a B2B SaaS startup or a multi-location real estate agency, our systems adapt to your exact business rules."
+    answer: "We specialize in high-impact automations for high-growth sectors — primarily Real Estate, E-Commerce, B2B Services, Digital Agencies, and Tech Startups. Our workflows eliminate critical operational bottlenecks: instant WhatsApp lead capture, autonomous CRM qualification, 24/7 customer support auto-replies, and multi-channel outreach."
   },
   {
     category: "Capabilities & Workflows",

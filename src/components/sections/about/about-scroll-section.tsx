@@ -62,14 +62,11 @@ const AboutScrollSection = () => {
               Math.floor(p * TOTAL_SLOTS),
               TOTAL_SLOTS - 1
             );
-            setActiveSlideIndex(idx);
+            setActiveSlideIndex((prev) => (prev !== idx ? idx : prev));
 
             // Final About Screen triggers smoothly on the last slot
-            if (idx >= TOTAL_SLIDES || p >= 0.88) {
-              setIsFinalSlideActive(true);
-            } else {
-              setIsFinalSlideActive(false);
-            }
+            const isFinal = idx >= TOTAL_SLIDES || p >= 0.88;
+            setIsFinalSlideActive((prev) => (prev !== isFinal ? isFinal : prev));
           },
         },
       });
@@ -224,8 +221,8 @@ const AboutScrollSection = () => {
                   <div className="text-[11px] font-mono uppercase tracking-wider text-white/60 mt-1">Live AI Workflows</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-white tracking-tight" style={{ color: redColor }}>&lt;200ms</div>
-                  <div className="text-[11px] font-mono uppercase tracking-wider text-white/60 mt-1">Agent Latency</div>
+                  <div className="text-3xl font-bold text-white tracking-tight" style={{ color: redColor }}>&lt;500ms</div>
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-white/60 mt-1">Webhook Response Speed</div>
                 </div>
                 <div>
                   <div className="text-3xl font-bold text-white tracking-tight">99.8%</div>
