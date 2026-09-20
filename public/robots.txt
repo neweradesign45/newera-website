@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://neweraautomations.com/sitemap.xml
+Sitemap: https://www.neweraautomations.com/sitemap.xml

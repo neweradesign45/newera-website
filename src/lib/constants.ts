@@ -1,5 +1,5 @@
 // NewEra Automations — Production Constants
-export const BASE_URL = "https://neweraautomations.com";
+export const BASE_URL = "https://www.neweraautomations.com";
 
 export const OG_IMAGE = `${BASE_URL}/og-image.png`;
 
