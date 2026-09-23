@@ -138,9 +138,12 @@
     @apply border-border outline-ring/50;
   }
   html {
-    /* Lenis provider handles smooth scrolling */
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   body {
+    overflow-x: hidden;
+    max-width: 100vw;
     @apply bg-background text-foreground;
   }
 }
