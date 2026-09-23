@@ -9,6 +9,8 @@ import Navbar from "@/components/layout/navbar";
 import StructuredData from "@/components/common/structured-data";
 import Analytics from "@/components/common/analytics";
 import ConsoleLog from "@/components/common/console-log";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 
 
 const poppins = Poppins({
@@ -157,6 +159,8 @@ export default function RootLayout({
             {children}
             <FooterSection />
           </LenisWrapper>
+          <SpeedInsights />
+          <VercelAnalytics />
         </ThemeProvider>
       </body>
     </html>
