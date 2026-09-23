@@ -91,7 +91,7 @@ const AboutMe = () => {
 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/hero-founder.png"
+            src="/hero-founder.webp"
             alt={`${FOUNDER_NAME} - ${BRAND_NAME}`}
             decoding="async"
             loading="eager"

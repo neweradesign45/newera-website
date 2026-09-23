@@ -9,15 +9,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 // 9 High-Impact System Slides + 1 Final About Screen = 10 Total Slots (Zero Redundancy)
 const SYSTEM_SLIDES = [
-  { src: "/scroll-slides/pdf-slide-1.png", alt: "AI Agent Dashboard" },
-  { src: "/scroll-slides/pdf-slide-4.png", alt: "Social Profile Extractor" },
-  { src: "/scroll-slides/pdf-slide-5.png", alt: "Systems Showcase Cover" },
-  { src: "/scroll-slides/pdf-slide-2.png", alt: "Multi-Channel Outreach Engine" },
-  { src: "/scroll-slides/pdf-slide-3.png", alt: "85% Qualified Leads Overview" },
-  { src: "/scroll-slides/pdf-slide-6.png", alt: "Real-Time CRM Sync Engine" },
-  { src: "/scroll-slides/pdf-slide-7.png", alt: "24/7 AI Support Agent" },
-  { src: "/scroll-slides/slide-8.png", alt: "Enterprise Cold Email Infrastructure" },
-  { src: "/scroll-slides/slide-9.png", alt: "AI Support Waveform Interface" },
+  { src: "/scroll-slides/pdf-slide-1.webp", alt: "AI Agent Dashboard" },
+  { src: "/scroll-slides/pdf-slide-4.webp", alt: "Social Profile Extractor" },
+  { src: "/scroll-slides/pdf-slide-5.webp", alt: "Systems Showcase Cover" },
+  { src: "/scroll-slides/pdf-slide-2.webp", alt: "Multi-Channel Outreach Engine" },
+  { src: "/scroll-slides/pdf-slide-3.webp", alt: "85% Qualified Leads Overview" },
+  { src: "/scroll-slides/pdf-slide-6.webp", alt: "Real-Time CRM Sync Engine" },
+  { src: "/scroll-slides/pdf-slide-7.webp", alt: "24/7 AI Support Agent" },
+  { src: "/scroll-slides/slide-8.webp", alt: "Enterprise Cold Email Infrastructure" },
+  { src: "/scroll-slides/slide-9.webp", alt: "AI Support Waveform Interface" },
 ];
 
 const TOTAL_SLIDES = SYSTEM_SLIDES.length; // 9 images

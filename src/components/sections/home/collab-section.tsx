@@ -141,7 +141,7 @@ const CollabSec: React.FC = () => {
               className="w-full h-full"
             >
               <motion.img
-                src="/bg/1.png"
+                src="/bg/1.webp"
                 alt="Collaboration image 1"
                 loading="lazy"
                 decoding="async"
@@ -210,7 +210,7 @@ const CollabSec: React.FC = () => {
               className="w-full h-full"
             >
               <motion.img
-                src="/bg/2.png"
+                src="/bg/2.webp"
                 alt="Collaboration image 2"
                 loading="lazy"
                 decoding="async"

@@ -9,7 +9,7 @@ const WORKFLOWS = [
     id: "lead-scorer",
     title: "AI Lead Scorer & Email Generator Agent",
     tagline: "OpenRouter LLM AI Agent & Automatic Qualification",
-    image: "/workflows/n8n-pipeline-3.png",
+    image: "/workflows/n8n-pipeline-3.webp",
     tabLabel: "01. AI Lead Scorer",
     description:
       "Reads leads from Google Sheets, scrapes target websites, passes enrichment data to OpenRouter LLM to score lead quality (Score >= 70 threshold), generates customized outreach emails via AI Agent Email Writer, and dispatches via Gmail API.",
@@ -19,7 +19,7 @@ const WORKFLOWS = [
     id: "multi-channel",
     title: "Multi-Channel Parallel Outreach Engine",
     tagline: "4-Branch Parallel Messaging & Follow-up Automation",
-    image: "/workflows/n8n-pipeline-4.png",
+    image: "/workflows/n8n-pipeline-4.webp",
     description:
       "Executes 4 parallel automation branches for lead follow-ups across Gmail and WhatsApp with custom JS logic, automated anti-spam delays (30s), sheet row status updates, and loop control.",
     tabLabel: "02. Multi-Channel Outreach",
@@ -29,7 +29,7 @@ const WORKFLOWS = [
     id: "social-scraper",
     title: "Social Lead & Hashtag Scraper",
     tagline: "Target Niche Hashtag Extraction & Lead Discovery",
-    image: "/workflows/n8n-pipeline-1.png",
+    image: "/workflows/n8n-pipeline-1.webp",
     tabLabel: "03. Hashtag Scraper",
     description:
       "Scheduled trigger system that inputs target industry hashtags, scrapes post data via Apify, extracts unique user profiles, applies follower & engagement filters, and appends clean leads into Google Sheets.",
@@ -39,7 +39,7 @@ const WORKFLOWS = [
     id: "profile-extractor",
     title: "Async Profile Extraction & Polling Engine",
     tagline: "Asynchronous Scraping with Polling & Retry Logic",
-    image: "/workflows/n8n-pipeline-2.png",
+    image: "/workflows/n8n-pipeline-2.webp",
     tabLabel: "04. Async Profile Extractor",
     description:
       "Advanced asynchronous scraping workflow that handles batch runs, polls execution status until finished, extracts detailed user datasets, deduplicates leads, and saves verified records.",
@@ -49,7 +49,7 @@ const WORKFLOWS = [
     id: "lead-ingestion",
     title: "Automated Lead Ingestion Pipeline",
     tagline: "End-to-End Scraping & Database Sync Workflow",
-    image: "/workflows/n8n-pipeline-5.png",
+    image: "/workflows/n8n-pipeline-5.webp",
     tabLabel: "05. Lead Ingestion",
     description:
       "Linear end-to-end lead ingestion pipeline for rapid lead discovery, hashtag scraping, profile verification, smart categorization, and automatic database appending.",

@@ -20,41 +20,54 @@ export function useAssetLoader() {
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    const MIN_MS = 2200; // let the greeting animation breathe
-    const MAX_MS = 9000; // never hold the site hostage to a slow asset
+    // Fast path: if user already saw intro during this session, complete immediately
+    try {
+      if (sessionStorage.getItem("newera_preloader_seen") === "true") {
+        setProgress(100);
+        setIsComplete(true);
+        return;
+      }
+    } catch {
+      // ignore storage errors
+    }
+
+    const MIN_MS = 600; // Snappy greeting reveal without artificial hostage delay
+    const MAX_MS = 2500; // Strict safety ceiling: never hang screen >2.5s
     const start = performance.now();
 
     let realDone = false;
     let raf = 0;
     let current = 0;
-    // Only push a React re-render when the *displayed* (integer) value actually
-    // changes — turns ~60 state updates/sec into ~1 per whole percent, which is
-    // what makes the overlay light enough to stay smooth on phones.
     let lastShown = -1;
 
-    // Resolve once the real assets have landed (window load + fonts).
+    // Resolve once critical DOM & fonts have settled
     let pending = 2;
     const settle = () => {
       pending -= 1;
       if (pending <= 0) realDone = true;
     };
 
-    if (document.readyState === "complete") settle();
-    else window.addEventListener("load", settle, { once: true });
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      settle();
+    } else {
+      document.addEventListener("DOMContentLoaded", settle, { once: true });
+      window.addEventListener("load", settle, { once: true });
+    }
 
-    if ("fonts" in document) document.fonts.ready.then(settle).catch(settle);
-    else settle();
+    if ("fonts" in document) {
+      document.fonts.ready.then(settle).catch(settle);
+    } else {
+      settle();
+    }
 
     const loop = (now: number) => {
       const elapsed = now - start;
-      // Perceived progress eases toward 90% over ~time, then real completion
-      // (or the safety cap) releases it to 100%.
-      const trickle = 90 * (1 - Math.exp(-elapsed / 1300));
+      const trickle = 95 * (1 - Math.exp(-elapsed / 450));
       const finished = (realDone && elapsed >= MIN_MS) || elapsed >= MAX_MS;
       const target = finished ? 100 : Math.min(trickle, realDone ? 96 : 90);
 
-      current += (target - current) * 0.1;
-      if (finished && target - current < 0.4) current = 100;
+      current += (target - current) * 0.15;
+      if (finished && target - current < 0.5) current = 100;
 
       const shown = Math.round(current);
       if (shown !== lastShown) {
@@ -63,8 +76,13 @@ export function useAssetLoader() {
       }
 
       if (current >= 100) {
+        try {
+          sessionStorage.setItem("newera_preloader_seen", "true");
+        } catch {
+          // ignore
+        }
         setIsComplete(true);
-        return; // stop the RAF loop
+        return;
       }
       raf = requestAnimationFrame(loop);
     };
