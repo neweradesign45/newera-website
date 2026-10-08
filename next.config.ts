@@ -36,6 +36,17 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   compress: true, // Enables Brotli/Gzip compression for high-traffic spikes
 
+  experimental: {
+    optimizePackageImports: [
+      "@tabler/icons-react",
+      "lucide-react",
+      "framer-motion",
+      "motion",
+      "date-fns",
+      "react-icons",
+    ],
+  },
+
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
@@ -50,6 +61,15 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      {
+        source: "/(.*).(webp|png|jpg|jpeg|svg|ico|woff2|woff)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
       },
     ];
   },

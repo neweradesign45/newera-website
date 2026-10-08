@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -44,37 +44,19 @@ function LenisGsapSync() {
 }
 
 const LenisWrapper = ({ children }: Props) => {
-  const [isTouchDevice, setIsTouchDevice] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const checkTouch = () => {
-      setIsTouchDevice(
-        window.innerWidth < 768 ||
-        "ontouchstart" in window ||
-        navigator.maxTouchPoints > 0
-      );
-    };
-    checkTouch();
-    window.addEventListener("resize", checkTouch);
-    return () => window.removeEventListener("resize", checkTouch);
-  }, []);
-
-  // On touch/mobile devices, use native GPU-composited scrolling (0ms lag, 100% fluid)
-  if (isTouchDevice) {
-    return <>{children}</>;
-  }
-
   return (
     <ReactLenis
       root
       autoRaf={false}
       options={{
-        duration: 1.0,
+        duration: 0.9,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
         wheelMultiplier: 1.0,
+        touchMultiplier: 1.0,
+        syncTouch: false, // 100% native compositor hardware touch scroll on phones
       }}
     >
       <LenisGsapSync />

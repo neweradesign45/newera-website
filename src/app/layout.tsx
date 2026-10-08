@@ -16,13 +16,14 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-accent",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -141,8 +142,8 @@ export default function RootLayout({
 
         <StructuredData />
         <Analytics />
-        {/* Google Preferred Sources Publisher Library */}
-        <script async src="https://news.google.com/swg/js/v1/publisher.js" />
+        {/* Preload critical hero image for instant First Contentful Paint */}
+        <link rel="preload" href="/hero-founder.webp" as="image" type="image/webp" fetchPriority="high" />
       </head>
       <body
         className={`${poppins.variable} ${cormorantGaramond.variable} antialiased  mx-auto `}
