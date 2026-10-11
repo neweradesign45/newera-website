@@ -225,12 +225,13 @@ const CalBooking = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Name */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                <label htmlFor="bottom-name" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
                   2. Your Name *
                 </label>
                 <div className="relative">
                   <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
+                    id="bottom-name"
                     type="text"
                     required
                     value={formData.name}
@@ -243,12 +244,13 @@ const CalBooking = () => {
 
               {/* Phone / WhatsApp */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                <label htmlFor="bottom-phone" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
                   3. WhatsApp / Phone *
                 </label>
                 <div className="relative">
                   <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
+                    id="bottom-phone"
                     type="tel"
                     required
                     value={formData.phone}
@@ -262,12 +264,13 @@ const CalBooking = () => {
 
             {/* Email */}
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+              <label htmlFor="bottom-email" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
                 4. Work Email *
               </label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
+                  id="bottom-email"
                   type="email"
                   required
                   value={formData.email}
@@ -280,12 +283,13 @@ const CalBooking = () => {
 
             {/* Message / Details */}
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+              <label htmlFor="bottom-message" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
                 5. What would you like to automate? (Optional)
               </label>
               <div className="relative">
                 <MessageSquare className="absolute left-3.5 top-3.5 w-4 h-4 text-muted-foreground" />
                 <textarea
+                  id="bottom-message"
                   rows={3}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}

@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FaWhatsapp } from "react-icons/fa6";
+import { useLenis } from "lenis/react";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -91,6 +92,22 @@ export default function CollabModal({ isOpen, onClose }: Props) {
       return () => clearTimeout(t);
     }
   }, [isOpen, reset]);
+
+  // Pause Lenis smooth scrolling & lock background body while modal is open
+  const lenis = useLenis();
+  useEffect(() => {
+    if (isOpen) {
+      lenis?.stop();
+      document.body.style.overflow = "hidden";
+    } else {
+      lenis?.start();
+      document.body.style.overflow = "";
+    }
+    return () => {
+      lenis?.start();
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, lenis]);
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
@@ -178,6 +195,11 @@ export default function CollabModal({ isOpen, onClose }: Props) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              onClose();
+            }
+          }}
           style={{
             background: "rgba(5, 5, 5, 0.92)",
             backdropFilter: "blur(16px)",
@@ -198,6 +220,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
           {/* ── CARD SHELL ── */}
           <motion.div
             data-lenis-prevent="true"
+            onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-4xl max-h-[96vh] md:max-h-[90vh] flex flex-col rounded-2xl overflow-hidden shadow-2xl"
             initial={{ scale: 0.97, opacity: 0, y: 12 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -294,6 +317,8 @@ export default function CollabModal({ isOpen, onClose }: Props) {
             {/* ── BODY (Scrollable with custom smooth scroll) ── */}
             <div
               data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
               className="flex-1 overflow-y-auto px-5 md:px-8 py-5 md:py-6 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
               style={{
                 overscrollBehavior: "contain",
@@ -320,22 +345,41 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                       <span>CUSTOM WORKFLOW INTAKE</span>
                     </div>
 
-                    {WORDS.map(({ text, accent }) => (
+                    {/* Desktop multi-word stack */}
+                    <div className="hidden lg:block">
+                      {WORDS.map(({ text, accent }) => (
+                        <h2
+                          key={text}
+                          style={{
+                            fontFamily: "var(--font-poppins)",
+                            fontSize: "clamp(28px, 3.8vw, 48px)",
+                            lineHeight: 0.95,
+                            color: accent ? RED : "white",
+                            fontWeight: "bold",
+                            letterSpacing: "-0.02em",
+                            margin: 0,
+                          }}
+                        >
+                          {text}
+                        </h2>
+                      ))}
+                    </div>
+
+                    {/* Mobile/Tablet compact headline */}
+                    <div className="block lg:hidden mb-2">
                       <h2
-                        key={text}
                         style={{
                           fontFamily: "var(--font-poppins)",
-                          fontSize: "clamp(28px, 3.8vw, 48px)",
-                          lineHeight: 0.95,
-                          color: accent ? RED : "white",
+                          fontSize: "22px",
+                          lineHeight: 1.1,
+                          color: "white",
                           fontWeight: "bold",
-                          letterSpacing: "-0.02em",
-                          margin: 0,
+                          letterSpacing: "-0.01em",
                         }}
                       >
-                        {text}
+                        YOUR BUSINESS. <span style={{ color: RED }}>OUR AGENTS.</span>
                       </h2>
-                    ))}
+                    </div>
 
                     <p
                       style={{
@@ -343,8 +387,8 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                         fontSize: "11px",
                         lineHeight: "1.6",
                         color: "rgba(255,255,255,0.45)",
-                        marginTop: "16px",
-                        maxWidth: "260px",
+                        marginTop: "12px",
+                        maxWidth: "280px",
                       }}
                     >
                       We engineer autonomous AI agents and enterprise automation pipelines. Get a tailored architecture breakdown in under 2 hours.
