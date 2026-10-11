@@ -11,7 +11,7 @@ const schema = z.object({
   name: z.string().min(1, "Name is required"),
   phone: z.string().min(6, "WhatsApp / Phone number is required"),
   email: z.string().email("Valid email required"),
-  message: z.string().min(5, "Tell us what you want automated"),
+  message: z.string().min(3, "Tell us what you want automated"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -39,10 +39,10 @@ const SUCCESS_WORDS = [
 ];
 
 const CORNERS = [
-  { id: "tl", top: 24, left: 24 },
-  { id: "tr", top: 24, right: 24 },
-  { id: "bl", bottom: 24, left: 24 },
-  { id: "br", bottom: 24, right: 24 },
+  { id: "tl", top: 20, left: 20 },
+  { id: "tr", top: 20, right: 20 },
+  { id: "bl", bottom: 20, left: 20 },
+  { id: "br", bottom: 20, right: 20 },
 ] as const;
 
 interface Props {
@@ -65,20 +65,16 @@ export default function CollabModal({ isOpen, onClose }: Props) {
     reset,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  // Escape key + body scroll lock
+  // Escape key
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     if (isOpen) {
       document.addEventListener("keydown", onKey);
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
     }
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
     };
   }, [isOpen, onClose]);
 
@@ -91,7 +87,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
         reset();
         setSelectedType("LEAD GEN AI");
         setIsSubmitting(false);
-      }, 900);
+      }, 500);
       return () => clearTimeout(t);
     }
   }, [isOpen, reset]);
@@ -115,7 +111,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
           email: data.email,
           service_needed: selectedType || "Custom Automation",
           message: data.message,
-          subject: `⚡ New Inbound Lead: ${data.name} (${data.phone}) - ${selectedType}`,
+          subject: `⚡ Modal Lead Transmission: ${data.name} (${data.phone}) - ${selectedType}`,
           from_name: "NewEra Automations Lead Engine",
         }),
       });
@@ -134,7 +130,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
   };
 
   const borderBottom = (field: string) =>
-    `1px solid ${focusedField === field ? RED : "rgba(255,255,255,0.13)"}`;
+    `1px solid ${focusedField === field ? RED : "rgba(255,255,255,0.18)"}`;
 
   const baseInput: React.CSSProperties = {
     width: "100%",
@@ -143,29 +139,29 @@ export default function CollabModal({ isOpen, onClose }: Props) {
     borderLeft: 0,
     borderRight: 0,
     outline: "none",
-    color: "white",
-    fontSize: "15px",
+    color: "#ffffff",
+    fontSize: "14px",
     fontFamily: "var(--font-poppins)",
-    fontWeight: "300",
-    padding: "10px 0",
-    transition: "border-color 0.3s ease",
+    fontWeight: "400",
+    padding: "6px 0",
+    transition: "border-color 0.25s ease",
   };
 
   const labelStyle: React.CSSProperties = {
     fontFamily: "var(--font-poppins)",
     fontSize: "9px",
-    letterSpacing: "0.28em",
+    letterSpacing: "0.22em",
     textTransform: "uppercase",
-    color: "rgba(255,255,255,0.38)",
+    color: "rgba(255,255,255,0.5)",
     display: "block",
-    marginBottom: "4px",
+    marginBottom: "2px",
   };
 
   const errorStyle: React.CSSProperties = {
     fontFamily: "var(--font-poppins)",
-    fontSize: "11px",
+    fontSize: "10px",
     color: RED,
-    marginTop: "5px",
+    marginTop: "3px",
     letterSpacing: "0.04em",
   };
 
@@ -176,64 +172,48 @@ export default function CollabModal({ isOpen, onClose }: Props) {
           role="dialog"
           aria-modal="true"
           aria-label="Collaboration Form"
-          className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-6 lg:p-12"
+          data-lenis-prevent="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.3 }}
           style={{
-            background: "rgba(5, 5, 5, 0.94)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
+            background: "rgba(5, 5, 5, 0.92)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
           }}
         >
-          {/* ── AMBIENT RED GLOW ── */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 overflow-hidden"
-          >
-            <div
-              style={{
-                position: "absolute",
-                top: "10%",
-                right: "5%",
-                width: "500px",
-                height: "500px",
-                background: `radial-gradient(circle, ${RED_RGBA} 0.08) 0%, transparent 70%)`,
-                filter: "blur(90px)",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                bottom: "10%",
-                left: "5%",
-                width: "400px",
-                height: "400px",
-                background: `radial-gradient(circle, ${RED_RGBA} 0.05) 0%, transparent 70%)`,
-                filter: "blur(90px)",
-              }}
-            />
-          </div>
+          {/* Chrome autofill dark reset */}
+          <style dangerouslySetInnerHTML={{ __html: `
+            .collab-dark-input:-webkit-autofill,
+            .collab-dark-input:-webkit-autofill:hover,
+            .collab-dark-input:-webkit-autofill:focus {
+              -webkit-text-fill-color: #ffffff !important;
+              -webkit-box-shadow: 0 0 0px 1000px #0a0a0a inset !important;
+              transition: background-color 5000s ease-in-out 0s !important;
+            }
+          `}} />
 
           {/* ── CARD SHELL ── */}
           <motion.div
-            className="relative w-full h-full md:h-auto md:max-w-5xl md:max-h-[92vh] flex flex-col overflow-hidden"
-            initial={{ scale: 0.96, opacity: 0, y: 16 }}
+            data-lenis-prevent="true"
+            className="relative w-full max-w-4xl max-h-[96vh] md:max-h-[90vh] flex flex-col rounded-2xl overflow-hidden shadow-2xl"
+            initial={{ scale: 0.97, opacity: 0, y: 12 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.96, opacity: 0, y: 16 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ scale: 0.97, opacity: 0, y: 12 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              backgroundColor: "#080808",
-              border: "1px solid rgba(255,255,255,0.08)",
+              backgroundColor: "#090909",
+              border: "1px solid rgba(255,255,255,0.1)",
             }}
           >
-            {/* ── CORNER ACCENTS (desktop only) ── */}
+            {/* Corner accents */}
             {CORNERS.map((c) => (
               <div
                 key={c.id}
                 aria-hidden="true"
-                className="hidden md:block absolute w-3 h-3 pointer-events-none"
+                className="hidden md:block absolute w-2.5 h-2.5 pointer-events-none"
                 style={{
                   top: "top" in c ? c.top : undefined,
                   bottom: "bottom" in c ? c.bottom : undefined,
@@ -249,15 +229,15 @@ export default function CollabModal({ isOpen, onClose }: Props) {
 
             {/* ── HEADER ── */}
             <div
-              className="flex items-center justify-between px-6 md:px-12 py-5 shrink-0"
-              style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+              className="flex items-center justify-between px-5 md:px-8 py-3.5 shrink-0"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <span
                   style={{
                     display: "inline-block",
-                    width: "5px",
-                    height: "5px",
+                    width: "6px",
+                    height: "6px",
                     backgroundColor: RED,
                     borderRadius: "50%",
                   }}
@@ -266,9 +246,10 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                   style={{
                     fontFamily: "var(--font-poppins)",
                     fontSize: "9px",
-                    letterSpacing: "0.32em",
+                    letterSpacing: "0.26em",
                     textTransform: "uppercase",
-                    color: "rgba(255,255,255,0.45)",
+                    color: "rgba(255,255,255,0.5)",
+                    fontWeight: "500",
                   }}
                 >
                   NEWERA AUTOMATIONS • INTAKE ENGINE
@@ -276,23 +257,22 @@ export default function CollabModal({ isOpen, onClose }: Props) {
               </div>
 
               <button
+                type="button"
                 onClick={onClose}
                 aria-label="Close form"
-                className="group flex items-center gap-2 cursor-pointer transition-colors"
+                className="group flex items-center gap-2 cursor-pointer transition-colors p-1"
                 style={{
                   background: "none",
                   border: "none",
-                  padding: "4px 0",
-                  color: "rgba(255,255,255,0.4)",
+                  color: "rgba(255,255,255,0.5)",
                 }}
               >
                 <span
                   style={{
                     fontFamily: "var(--font-poppins)",
                     fontSize: "9px",
-                    letterSpacing: "0.24em",
+                    letterSpacing: "0.2em",
                     textTransform: "uppercase",
-                    transition: "color 0.2s",
                   }}
                   className="group-hover:text-white"
                 >
@@ -303,7 +283,6 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                     fontFamily: "var(--font-poppins)",
                     fontSize: "14px",
                     lineHeight: 1,
-                    transition: "color 0.2s",
                   }}
                   className="group-hover:text-white"
                 >
@@ -312,70 +291,84 @@ export default function CollabModal({ isOpen, onClose }: Props) {
               </button>
             </div>
 
-            {/* ── BODY (Scrollable on small screens) ── */}
-            <div className="flex-1 overflow-y-auto px-6 md:px-12 py-8">
-              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 min-h-full">
+            {/* ── BODY (Scrollable with custom smooth scroll) ── */}
+            <div
+              data-lenis-prevent="true"
+              className="flex-1 overflow-y-auto px-5 md:px-8 py-5 md:py-6 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]"
+              style={{
+                overscrollBehavior: "contain",
+              }}
+            >
+              <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-stretch">
                 {/* ── LEFT — Typography Panel ── */}
-                <div className="lg:w-[40%] flex flex-col justify-center">
-                  <div
-                    style={{
-                      fontFamily: "var(--font-poppins)",
-                      fontSize: "9px",
-                      letterSpacing: "0.3em",
-                      textTransform: "uppercase",
-                      color: RED,
-                      marginBottom: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                    }}
-                  >
-                    <span>✦</span>
-                    <span>INITIATE COLLABORATION</span>
-                  </div>
-
-                  {WORDS.map(({ text, accent }) => (
-                    <h2
-                      key={text}
+                <div className="lg:w-[38%] flex flex-col justify-between shrink-0">
+                  <div>
+                    <div
                       style={{
                         fontFamily: "var(--font-poppins)",
-                        fontSize: "clamp(34px, 4.5vw, 60px)",
-                        lineHeight: 0.94,
-                        color: accent ? RED : "white",
-                        fontWeight: "bold",
-                        letterSpacing: "-0.02em",
-                        margin: 0,
+                        fontSize: "9px",
+                        letterSpacing: "0.26em",
+                        textTransform: "uppercase",
+                        color: RED,
+                        marginBottom: "10px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                       }}
                     >
-                      {text}
-                    </h2>
-                  ))}
+                      <span>✦</span>
+                      <span>CUSTOM WORKFLOW INTAKE</span>
+                    </div>
 
-                  <p
-                    style={{
-                      fontFamily: "var(--font-poppins)",
-                      fontSize: "12px",
-                      lineHeight: "1.7",
-                      color: "rgba(255,255,255,0.4)",
-                      marginTop: "24px",
-                      maxWidth: "280px",
-                    }}
-                  >
-                    We build autonomous AI agents &amp; enterprise workflow automations. Get a customized architecture and proposal in under 2 hours.
-                  </p>
+                    {WORDS.map(({ text, accent }) => (
+                      <h2
+                        key={text}
+                        style={{
+                          fontFamily: "var(--font-poppins)",
+                          fontSize: "clamp(28px, 3.8vw, 48px)",
+                          lineHeight: 0.95,
+                          color: accent ? RED : "white",
+                          fontWeight: "bold",
+                          letterSpacing: "-0.02em",
+                          margin: 0,
+                        }}
+                      >
+                        {text}
+                      </h2>
+                    ))}
+
+                    <p
+                      style={{
+                        fontFamily: "var(--font-poppins)",
+                        fontSize: "11px",
+                        lineHeight: "1.6",
+                        color: "rgba(255,255,255,0.45)",
+                        marginTop: "16px",
+                        maxWidth: "260px",
+                      }}
+                    >
+                      We engineer autonomous AI agents and enterprise automation pipelines. Get a tailored architecture breakdown in under 2 hours.
+                    </p>
+                  </div>
+
+                  <div className="hidden lg:block pt-6">
+                    <p style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.05em" }}>
+                      Direct Founder Review • 0 Cost Audit
+                    </p>
+                  </div>
                 </div>
 
                 {/* Vertical Divider */}
                 <div
                   className="hidden lg:block w-px self-stretch shrink-0"
-                  style={{ background: "rgba(255,255,255,0.07)" }}
+                  style={{ background: "rgba(255,255,255,0.08)" }}
                 />
 
                 {/* ── RIGHT — Form / Success ── */}
-                <div className="lg:w-[60%] flex flex-col justify-center">
+                <div className="lg:w-[62%] flex flex-col justify-center">
                   <AnimatePresence mode="wait">
                     {!isSuccess ? (
-                      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         {/* Name */}
                         <div>
                           <label htmlFor="modal-name" style={labelStyle}>
@@ -385,6 +378,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                             id="modal-name"
                             {...register("name")}
                             placeholder="e.g. John Doe / Rahul Sharma"
+                            className="collab-dark-input"
                             style={{
                               ...baseInput,
                               borderBottom: borderBottom("name"),
@@ -398,7 +392,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                         </div>
 
                         {/* WhatsApp / Phone & Email Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {/* WhatsApp / Phone */}
                           <div>
                             <label htmlFor="modal-phone" style={labelStyle}>
@@ -409,6 +403,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                               type="tel"
                               {...register("phone")}
                               placeholder="e.g. +91 98765 43210"
+                              className="collab-dark-input"
                               style={{
                                 ...baseInput,
                                 borderBottom: borderBottom("phone"),
@@ -431,6 +426,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                               type="email"
                               {...register("email")}
                               placeholder="you@company.com"
+                              className="collab-dark-input"
                               style={{
                                 ...baseInput,
                                 borderBottom: borderBottom("email"),
@@ -447,7 +443,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                         {/* Project Type */}
                         <div>
                           <label style={labelStyle}>SERVICE NEEDED</label>
-                          <div className="flex flex-wrap gap-2 mt-2">
+                          <div className="flex flex-wrap gap-1.5 mt-1.5">
                             {PROJECT_TYPES.map((type) => {
                               const active = selectedType === type;
                               return (
@@ -455,13 +451,13 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                                   key={type}
                                   type="button"
                                   onClick={() => setSelectedType(type)}
-                                  className="text-xs px-3.5 py-2 rounded-lg transition-all duration-200 border"
+                                  className="text-[11px] px-3 py-1.5 rounded-lg transition-all duration-200 border"
                                   style={{
                                     fontFamily: "var(--font-poppins)",
-                                    letterSpacing: "0.08em",
-                                    borderColor: active ? RED : "rgba(255,255,255,0.1)",
+                                    letterSpacing: "0.06em",
+                                    borderColor: active ? RED : "rgba(255,255,255,0.12)",
                                     backgroundColor: active ? RED : "rgba(255,255,255,0.03)",
-                                    color: active ? "white" : "rgba(255,255,255,0.6)",
+                                    color: active ? "white" : "rgba(255,255,255,0.65)",
                                     fontWeight: active ? "600" : "400",
                                     cursor: "pointer",
                                   }}
@@ -481,12 +477,13 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                           <textarea
                             id="modal-message"
                             {...register("message")}
-                            rows={3}
-                            placeholder="Briefly describe your current manual bottlenecks or workflow requirements..."
+                            rows={2}
+                            placeholder="Briefly describe your manual bottlenecks or workflow requirements..."
+                            className="collab-dark-input"
                             style={{
                               ...baseInput,
                               resize: "none",
-                              lineHeight: "1.65",
+                              lineHeight: "1.5",
                               borderBottom: borderBottom("message"),
                             }}
                             onFocus={() => setFocusedField("message")}
@@ -499,7 +496,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
 
                         {/* Submit Error */}
                         {submitError && (
-                          <p style={{ ...errorStyle, marginBottom: "12px" }}>
+                          <p style={{ ...errorStyle, marginBottom: "8px" }}>
                             ↳ Could not dispatch. Please message directly on WhatsApp!
                           </p>
                         )}
@@ -508,13 +505,13 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                         <motion.button
                           type="submit"
                           disabled={isSubmitting}
-                          className="relative overflow-hidden w-full rounded-xl transition-transform hover:scale-[1.01]"
+                          className="relative overflow-hidden w-full rounded-xl transition-transform hover:scale-[1.01] active:scale-[0.99]"
                           style={{
                             border: `1px solid ${RED}`,
                             backgroundColor: RED,
-                            padding: "18px 24px",
+                            padding: "14px 20px",
                             cursor: isSubmitting ? "wait" : "pointer",
-                            boxShadow: `0 8px 24px -4px ${RED_RGBA} 0.4)`,
+                            boxShadow: `0 8px 20px -4px ${RED_RGBA} 0.45)`,
                           }}
                         >
                           <span
@@ -523,7 +520,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                               zIndex: 1,
                               fontFamily: "var(--font-poppins)",
                               fontSize: "11px",
-                              letterSpacing: "0.24em",
+                              letterSpacing: "0.22em",
                               textTransform: "uppercase",
                               color: "white",
                               fontWeight: "600",
@@ -539,14 +536,14 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                       </form>
                     ) : (
                       /* Success State */
-                      <div className="py-8 flex flex-col justify-center">
+                      <div className="py-6 flex flex-col justify-center">
                         {SUCCESS_WORDS.map(({ text, accent }) => (
                           <h3
                             key={text}
                             style={{
                               fontFamily: "var(--font-poppins)",
-                              fontSize: "clamp(34px, 4.5vw, 60px)",
-                              lineHeight: 0.94,
+                              fontSize: "clamp(28px, 4vw, 50px)",
+                              lineHeight: 0.95,
                               color: accent ? RED : "white",
                               fontWeight: "bold",
                               margin: 0,
@@ -560,33 +557,33 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                           style={{
                             height: "1px",
                             background: `linear-gradient(to right, ${RED}, transparent)`,
-                            marginTop: "24px",
-                            marginBottom: "20px",
+                            marginTop: "16px",
+                            marginBottom: "16px",
                           }}
                         />
 
                         <p
                           style={{
                             fontFamily: "var(--font-poppins)",
-                            fontSize: "13px",
+                            fontSize: "12px",
                             lineHeight: "1.7",
-                            color: "rgba(255,255,255,0.6)",
-                            marginBottom: "28px",
+                            color: "rgba(255,255,255,0.7)",
+                            marginBottom: "20px",
                           }}
                         >
                           Thank you {submittedName}! Your automation brief has been delivered directly to Founder Krishna Prajapati.
                           <br />
-                          We will review your requirements and reach out within 2 hours.
+                          We will review your requirements and reach out via WhatsApp &amp; Email within 2 hours.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center gap-4">
+                        <div className="flex flex-col sm:flex-row items-center gap-3">
                           <a
                             href={`https://wa.me/917078994915?text=${encodeURIComponent(
                               `Hi Krishna, I just submitted an inquiry on neweraautomations.com regarding automation for ${submittedName}.`
                             )}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-xl bg-green-600 hover:bg-green-500 text-white font-medium px-5 py-3 text-xs transition-all w-full sm:w-auto justify-center"
+                            className="inline-flex items-center gap-2 rounded-xl bg-green-600 hover:bg-green-500 text-white font-medium px-5 py-3 text-xs transition-all w-full sm:w-auto justify-center shadow-lg shadow-green-900/30"
                           >
                             <FaWhatsapp className="w-4 h-4" />
                             <span>Prefer Instant Chat? WhatsApp Krishna</span>
@@ -597,15 +594,15 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                             onClick={onClose}
                             style={{
                               fontFamily: "var(--font-poppins)",
-                              fontSize: "11px",
+                              fontSize: "10px",
                               letterSpacing: "0.2em",
                               textTransform: "uppercase",
-                              color: "rgba(255,255,255,0.4)",
+                              color: "rgba(255,255,255,0.45)",
                               background: "none",
                               border: "none",
                               cursor: "pointer",
                             }}
-                            className="hover:text-white"
+                            className="hover:text-white py-2"
                           >
                             ← RETURN TO SITE
                           </button>
