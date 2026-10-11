@@ -21,7 +21,7 @@ const navLinks = [
 
 const socialLinks = [
   { name: "WhatsApp", href: "https://wa.me/917078994915" },
-  { name: "Email", href: "mailto:neweraagents45@gmail.com" },
+  { name: "Email", href: `mailto:${EMAIL}` },
 ];
 
 const EASE_OPEN: [number, number, number, number] = [0.76, 0, 0.24, 1];

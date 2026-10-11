@@ -13,9 +13,11 @@
 | **Founder Role** | Founder & Chief Automation Architect |
 | **Agency Name** | **NewEra Automations** |
 | **Agency Tagline** | *We Build Systems That Work While You Sleep* |
-| **Official Email** | `neweraagents45@gmail.com` |
+| **Official Business Email** | **`krishna@neweraautomations.com`** (Zoho Mail Free Tier) |
+| **Google/GitHub Backup Email** | `neweraagents45@gmail.com` |
+| **GoDaddy Registered Account** | `nera76943@gmail.com` (Customer ID: `743228246`, Mobile: `7078994915`) |
 | **WhatsApp Support** | `+917078994915` (`https://wa.me/917078994915`) |
-| **Chosen Domain** | **`neweraautomations.com`** (Purchased via GoDaddy) |
+| **Chosen Domain** | **`neweraautomations.com`** (Active on GoDaddy) |
 | **Hosting Server** | **Vercel (Hobby Free Tier)** |
 | **GitHub Repo** | `neweradesign45/newera-website` (Private) |
 
@@ -30,6 +32,10 @@
 - [x] **GoDaddy DNS Records**:
   - `A` Record `@` → `216.198.79.1`
   - `CNAME` Record `www` → `9155f94c8ef9e644.vercel-dns-017.com.`
+  - `CNAME` Record `zb23367535` → `zmverify.zoho.in.` (Zoho Domain Ownership Verification)
+  - `MX` Records: `mx.zoho.in` (10), `mx2.zoho.in` (20), `mx3.zoho.in` (50)
+  - `TXT` Record: `v=spf1 include:dc-8e814c8572._spfm.neweraautomations.com ~all` (Zoho SPF)
+- [x] **Professional Business Email**: `krishna@neweraautomations.com` live on Zoho Mail (Forever Free Plan).
 
 ---
 

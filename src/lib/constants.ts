@@ -10,4 +10,4 @@ export const FOUNDER_NAME = "Krishna Prajapati";
 export const FOUNDER_ROLE = "Founder & Chief Automation Architect";
 export const WHATSAPP_NUMBER = "+917078994915";
 export const WHATSAPP_LINK = "https://wa.me/917078994915";
-export const EMAIL = "neweraagents45@gmail.com";
+export const EMAIL = "krishna@neweraautomations.com";

@@ -1,4 +1,4 @@
-import { BASE_URL, OG_IMAGE } from "@/lib/constants";
+import { BASE_URL, OG_IMAGE, EMAIL } from "@/lib/constants";
 
 export default function StructuredData() {
   const structuredData = {
@@ -51,7 +51,7 @@ export default function StructuredData() {
     "@id": BASE_URL,
     url: BASE_URL,
     telephone: "+917078994915",
-    email: "neweraagents45@gmail.com",
+    email: EMAIL,
     address: {
       "@type": "PostalAddress",
       addressCountry: "IN",

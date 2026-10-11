@@ -7,6 +7,7 @@ import {
   BRAND_NAME,
   FOUNDER_NAME,
   WHATSAPP_LINK,
+  EMAIL,
 } from "@/lib/constants";
 
 const AboutMe = () => {
@@ -173,7 +174,7 @@ const AboutMe = () => {
               </span>
             </Link>
             <span className="w-1 h-1 bg-primary rounded-full" />
-            <Link href="mailto:neweraagents45@gmail.com" target="_blank">
+            <Link href={`mailto:${EMAIL}`} target="_blank">
               <span className="hover:text-primary transition-colors cursor-pointer">
                 Email
               </span>

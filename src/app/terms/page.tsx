@@ -64,7 +64,7 @@ export default function TermsOfServicePage() {
             </p>
             <ul className="list-disc pl-6 mt-4 space-y-2">
               <li><strong>Founder:</strong> Krishna Prajapati</li>
-              <li><strong>Email:</strong> <a href="mailto:neweraagents45@gmail.com" className="text-primary hover:underline">neweraagents45@gmail.com</a></li>
+              <li><strong>Email:</strong> <a href="mailto:krishna@neweraautomations.com" className="text-primary hover:underline">krishna@neweraautomations.com</a></li>
               <li><strong>WhatsApp:</strong> <a href="https://wa.me/917078994915" className="text-primary hover:underline">+91 70789 94915</a></li>
             </ul>
           </section>
