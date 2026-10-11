@@ -5,16 +5,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
+  phone: z.string().min(6, "WhatsApp / Phone number is required"),
   email: z.string().email("Valid email required"),
-  message: z.string().min(10, "Tell us a bit more (min 10 chars)"),
+  message: z.string().min(5, "Tell us what you want automated"),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const PROJECT_TYPES = ["LEAD GEN", "SUPPORT AI", "WORKFLOWS", "FULL AUTOMATION"] as const;
+const PROJECT_TYPES = [
+  "LEAD GEN AI",
+  "WHATSAPP & CRM",
+  "SUPPORT AGENT",
+  "CUSTOM WORKFLOW",
+] as const;
 
 const RED = "oklch(59.71% 0.23 23.86)";
 const RED_RGBA = "rgba(201, 58, 42,";
@@ -23,13 +30,12 @@ const WORDS = [
   { text: "YOUR", accent: false },
   { text: "BUSINESS.", accent: true },
   { text: "OUR", accent: false },
-  { text: "SYSTEMS.", accent: true },
+  { text: "AGENTS.", accent: true },
 ];
 
 const SUCCESS_WORDS = [
-  { text: "TRANS-", accent: false },
-  { text: "MISSION", accent: true },
-  { text: "SENT.", accent: false },
+  { text: "INQUIRY", accent: false },
+  { text: "DISPATCHED.", accent: true },
 ];
 
 const CORNERS = [
@@ -45,11 +51,12 @@ interface Props {
 }
 
 export default function CollabModal({ isOpen, onClose }: Props) {
-  const [selectedType, setSelectedType] = useState("");
+  const [selectedType, setSelectedType] = useState<string>("LEAD GEN AI");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState(false);
+  const [submittedName, setSubmittedName] = useState("");
 
   const {
     register,
@@ -82,7 +89,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
         setIsSuccess(false);
         setSubmitError(false);
         reset();
-        setSelectedType("");
+        setSelectedType("LEAD GEN AI");
         setIsSubmitting(false);
       }, 900);
       return () => clearTimeout(t);
@@ -92,6 +99,8 @@ export default function CollabModal({ isOpen, onClose }: Props) {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     setSubmitError(false);
+    setSubmittedName(data.name);
+
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -102,13 +111,15 @@ export default function CollabModal({ isOpen, onClose }: Props) {
         body: JSON.stringify({
           access_key: "a957aa51-07fa-46b1-a740-35a1b4143049",
           name: data.name,
+          phone: data.phone,
           email: data.email,
-          service_needed: selectedType || "General Automation",
+          service_needed: selectedType || "Custom Automation",
           message: data.message,
-          subject: `⚡ Collab Intake Lead: ${data.name} (${selectedType || "General"})`,
+          subject: `⚡ New Inbound Lead: ${data.name} (${data.phone}) - ${selectedType}`,
           from_name: "NewEra Automations Lead Engine",
         }),
       });
+
       const result = await res.json();
       if (result.success) {
         setIsSuccess(true);
@@ -132,319 +143,248 @@ export default function CollabModal({ isOpen, onClose }: Props) {
     borderLeft: 0,
     borderRight: 0,
     outline: "none",
-    paddingBottom: "12px",
-    paddingTop: "4px",
-    fontFamily: "var(--font-poppins)",
-    fontSize: "clamp(15px, 1.6vw, 19px)",
     color: "white",
-    caretColor: RED,
+    fontSize: "15px",
+    fontFamily: "var(--font-poppins)",
+    fontWeight: "300",
+    padding: "10px 0",
     transition: "border-color 0.3s ease",
   };
 
   const labelStyle: React.CSSProperties = {
-    display: "block",
     fontFamily: "var(--font-poppins)",
     fontSize: "9px",
     letterSpacing: "0.28em",
     textTransform: "uppercase",
-    color: "rgba(255,255,255,0.28)",
-    marginBottom: "10px",
+    color: "rgba(255,255,255,0.38)",
+    display: "block",
+    marginBottom: "4px",
   };
 
   const errorStyle: React.CSSProperties = {
-    color: RED,
-    fontSize: "10px",
-    marginTop: "6px",
     fontFamily: "var(--font-poppins)",
-    letterSpacing: "0.1em",
+    fontSize: "11px",
+    color: RED,
+    marginTop: "5px",
+    letterSpacing: "0.04em",
   };
 
   return (
-    <>
-      {/* Scoped styles for placeholder + scrollbar */}
-      <style>{`
-        .collab-input::placeholder {
-          color: rgba(255,255,255,0.16);
-          font-size: 13px;
-          letter-spacing: 0.04em;
-        }
-        .collab-input::-webkit-scrollbar { display: none; }
-        .collab-input { scrollbar-width: none; }
-      `}</style>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ clipPath: "circle(0% at 50% 50%)" }}
-            animate={{ clipPath: "circle(150% at 50% 50%)" }}
-            exit={{ clipPath: "circle(0% at 50% 50%)" }}
-            transition={{ duration: 0.88, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-200"
-            style={{ background: "#080808" }}
-            aria-modal="true"
-            role="dialog"
-            aria-label="Collaboration form"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Collaboration Form"
+          className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-6 lg:p-12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          style={{
+            background: "rgba(5, 5, 5, 0.94)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+          }}
+        >
+          {/* ── AMBIENT RED GLOW ── */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 overflow-hidden"
           >
-            {/* Grain */}
             <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 z-0 opacity-[0.04]"
               style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-                backgroundSize: "200px",
+                position: "absolute",
+                top: "10%",
+                right: "5%",
+                width: "500px",
+                height: "500px",
+                background: `radial-gradient(circle, ${RED_RGBA} 0.08) 0%, transparent 70%)`,
+                filter: "blur(90px)",
               }}
             />
+            <div
+              style={{
+                position: "absolute",
+                bottom: "10%",
+                left: "5%",
+                width: "400px",
+                height: "400px",
+                background: `radial-gradient(circle, ${RED_RGBA} 0.05) 0%, transparent 70%)`,
+                filter: "blur(90px)",
+              }}
+            />
+          </div>
 
-            {/* Corner brackets */}
-            {CORNERS.map((c, i) => (
-              <motion.div
+          {/* ── CARD SHELL ── */}
+          <motion.div
+            className="relative w-full h-full md:h-auto md:max-w-5xl md:max-h-[92vh] flex flex-col overflow-hidden"
+            initial={{ scale: 0.96, opacity: 0, y: 16 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.96, opacity: 0, y: 16 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              backgroundColor: "#080808",
+              border: "1px solid rgba(255,255,255,0.08)",
+            }}
+          >
+            {/* ── CORNER ACCENTS (desktop only) ── */}
+            {CORNERS.map((c) => (
+              <div
                 key={c.id}
                 aria-hidden="true"
-                className="absolute w-9 h-9 z-10 pointer-events-none"
+                className="hidden md:block absolute w-3 h-3 pointer-events-none"
                 style={{
-                  ...("top" in c ? { top: (c as { top: number }).top } : {}),
-                  ...("bottom" in c
-                    ? { bottom: (c as { bottom: number }).bottom }
-                    : {}),
-                  ...("left" in c
-                    ? { left: (c as { left: number }).left }
-                    : {}),
-                  ...("right" in c
-                    ? { right: (c as { right: number }).right }
-                    : {}),
-                  borderTop: c.id.includes("t")
-                    ? `1px solid ${RED_RGBA} 0.45)`
-                    : "none",
-                  borderBottom: c.id.includes("b")
-                    ? `1px solid ${RED_RGBA} 0.45)`
-                    : "none",
-                  borderLeft: c.id.includes("l")
-                    ? `1px solid ${RED_RGBA} 0.45)`
-                    : "none",
-                  borderRight: c.id.includes("r")
-                    ? `1px solid ${RED_RGBA} 0.45)`
-                    : "none",
-                }}
-                initial={{ opacity: 0, scale: 0.2 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  delay: 0.6 + i * 0.06,
-                  duration: 0.55,
-                  ease: [0.16, 1, 0.3, 1],
+                  top: "top" in c ? c.top : undefined,
+                  bottom: "bottom" in c ? c.bottom : undefined,
+                  left: "left" in c ? c.left : undefined,
+                  right: "right" in c ? c.right : undefined,
+                  borderTop: "top" in c ? `1px solid ${RED}` : undefined,
+                  borderBottom: "bottom" in c ? `1px solid ${RED}` : undefined,
+                  borderLeft: "left" in c ? `1px solid ${RED}` : undefined,
+                  borderRight: "right" in c ? `1px solid ${RED}` : undefined,
                 }}
               />
             ))}
 
-            {/* Scrollable wrapper */}
-            <div className="relative z-10 h-full overflow-y-auto flex flex-col">
-              {/* ── HEADER ── */}
-              <motion.header
-                className="flex items-center justify-between px-8 md:px-16 pt-8 pb-5 shrink-0"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.52, duration: 0.5 }}
+            {/* ── HEADER ── */}
+            <div
+              className="flex items-center justify-between px-6 md:px-12 py-5 shrink-0"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+            >
+              <div className="flex items-center gap-3">
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: "5px",
+                    height: "5px",
+                    backgroundColor: RED,
+                    borderRadius: "50%",
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "var(--font-poppins)",
+                    fontSize: "9px",
+                    letterSpacing: "0.32em",
+                    textTransform: "uppercase",
+                    color: "rgba(255,255,255,0.45)",
+                  }}
+                >
+                  NEWERA AUTOMATIONS • INTAKE ENGINE
+                </span>
+              </div>
+
+              <button
+                onClick={onClose}
+                aria-label="Close form"
+                className="group flex items-center gap-2 cursor-pointer transition-colors"
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: "4px 0",
+                  color: "rgba(255,255,255,0.4)",
+                }}
               >
                 <span
                   style={{
                     fontFamily: "var(--font-poppins)",
-                    color: RED,
-                    fontSize: "10px",
-                    letterSpacing: "0.3em",
+                    fontSize: "9px",
+                    letterSpacing: "0.24em",
                     textTransform: "uppercase",
+                    transition: "color 0.2s",
                   }}
+                  className="group-hover:text-white"
                 >
-                  ✦ NEWERA AUTOMATIONS
+                  CLOSE
                 </span>
-
-                <motion.button
-                  onClick={onClose}
-                  className="flex items-center gap-3 cursor-pointer"
-                  style={{ background: "none", border: "none", padding: 0 }}
-                  aria-label="Close collaboration form"
-                  whileHover="hov"
+                <span
+                  style={{
+                    fontFamily: "var(--font-poppins)",
+                    fontSize: "14px",
+                    lineHeight: 1,
+                    transition: "color 0.2s",
+                  }}
+                  className="group-hover:text-white"
                 >
-                  <motion.span
-                    variants={{ hov: { color: "rgba(255,255,255,0.6)" } }}
+                  ✕
+                </span>
+              </button>
+            </div>
+
+            {/* ── BODY (Scrollable on small screens) ── */}
+            <div className="flex-1 overflow-y-auto px-6 md:px-12 py-8">
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 min-h-full">
+                {/* ── LEFT — Typography Panel ── */}
+                <div className="lg:w-[40%] flex flex-col justify-center">
+                  <div
                     style={{
                       fontFamily: "var(--font-poppins)",
-                      fontSize: "10px",
+                      fontSize: "9px",
                       letterSpacing: "0.3em",
                       textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.25)",
-                      transition: "color 0.2s",
-                    }}
-                  >
-                    CLOSE
-                  </motion.span>
-                  <motion.span
-                    variants={{ hov: { rotate: 90, color: RED } }}
-                    transition={{ duration: 0.3 }}
-                    style={{
-                      color: "rgba(255,255,255,0.45)",
-                      fontSize: "18px",
-                      display: "block",
-                      lineHeight: 1,
-                    }}
-                  >
-                    ✕
-                  </motion.span>
-                </motion.button>
-              </motion.header>
-
-              {/* Thin top rule */}
-              <motion.div
-                className="mx-8 md:mx-16 shrink-0"
-                style={{
-                  height: "1px",
-                  background: "rgba(255,255,255,0.07)",
-                  transformOrigin: "left",
-                }}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{
-                  delay: 0.52,
-                  duration: 0.9,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                aria-hidden="true"
-              />
-
-              {/* ── BODY ── */}
-              <div className="flex-1 flex flex-col lg:flex-row px-8 md:px-16 py-10 lg:py-0 gap-10 lg:gap-0 min-h-0">
-                {/* ── LEFT — Typography ── */}
-                <div className="lg:w-[40%] flex flex-col justify-center lg:py-16 lg:pr-14">
-                  <motion.p
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.66, duration: 0.5 }}
-                    style={{
-                      fontFamily: "var(--font-poppins)",
                       color: RED,
-                      fontSize: "9px",
-                      letterSpacing: "0.28em",
-                      textTransform: "uppercase",
-                      marginBottom: "28px",
+                      marginBottom: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
                     }}
                   >
-                    ✦ INITIATE COLLABORATION
-                  </motion.p>
-
-                  {/* Stacked giant words */}
-                  <div aria-hidden="true">
-                    {WORDS.map(({ text, accent }, i) => (
-                      <div key={text} style={{ overflow: "hidden" }}>
-                        <motion.div
-                          initial={{ y: "112%" }}
-                          animate={{ y: "0%" }}
-                          transition={{
-                            delay: 0.62 + i * 0.095,
-                            duration: 0.9,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
-                          style={{
-                            fontFamily: "var(--font-poppins)",
-                            fontSize: "clamp(50px, 7.5vw, 104px)",
-                            lineHeight: 0.87,
-                            color: accent ? RED : "white",
-                            fontWeight: "normal",
-                            paddingBottom: "2px",
-                          }}
-                        >
-                          {text}
-                        </motion.div>
-                      </div>
-                    ))}
+                    <span>✦</span>
+                    <span>INITIATE COLLABORATION</span>
                   </div>
 
-                  {/* Subtext */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.04, duration: 0.8 }}
+                  {WORDS.map(({ text, accent }) => (
+                    <h2
+                      key={text}
+                      style={{
+                        fontFamily: "var(--font-poppins)",
+                        fontSize: "clamp(34px, 4.5vw, 60px)",
+                        lineHeight: 0.94,
+                        color: accent ? RED : "white",
+                        fontWeight: "bold",
+                        letterSpacing: "-0.02em",
+                        margin: 0,
+                      }}
+                    >
+                      {text}
+                    </h2>
+                  ))}
+
+                  <p
                     style={{
                       fontFamily: "var(--font-poppins)",
-                      fontSize: "11px",
-                      lineHeight: "1.8",
-                      color: "rgba(255,255,255,0.28)",
-                      marginTop: "30px",
-                      maxWidth: "260px",
+                      fontSize: "12px",
+                      lineHeight: "1.7",
+                      color: "rgba(255,255,255,0.4)",
+                      marginTop: "24px",
+                      maxWidth: "280px",
                     }}
                   >
-                    We craft digital experiences that demand attention.
-                    Let&apos;s build something worth remembering.
-                  </motion.p>
-
-                  {/* Red gradient line */}
-                  <motion.div
-                    aria-hidden="true"
-                    style={{
-                      height: "1px",
-                      background: `linear-gradient(to right, ${RED}, transparent)`,
-                      marginTop: "18px",
-                      maxWidth: "260px",
-                      transformOrigin: "left",
-                    }}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{
-                      delay: 1.14,
-                      duration: 1,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                  />
+                    We build autonomous AI agents &amp; enterprise workflow automations. Get a customized architecture and proposal in under 2 hours.
+                  </p>
                 </div>
 
-                {/* Vertical divider — desktop */}
-                <motion.div
-                  aria-hidden="true"
+                {/* Vertical Divider */}
+                <div
                   className="hidden lg:block w-px self-stretch shrink-0"
-                  style={{
-                    background: "rgba(255,255,255,0.07)",
-                    transformOrigin: "top",
-                  }}
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  transition={{
-                    delay: 0.52,
-                    duration: 0.9,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
+                  style={{ background: "rgba(255,255,255,0.07)" }}
                 />
 
                 {/* ── RIGHT — Form / Success ── */}
-                <div className="lg:w-[60%] flex flex-col justify-center lg:py-16 lg:pl-14">
+                <div className="lg:w-[60%] flex flex-col justify-center">
                   <AnimatePresence mode="wait">
-                    {/* ── FORM ── */}
-                    {!isSuccess && (
-                      <motion.form
-                        key="form"
-                        onSubmit={handleSubmit(onSubmit)}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0, x: -16 }}
-                        transition={{ duration: 0.35 }}
-                        noValidate
-                      >
-                        {/* ── NAME ── */}
-                        <motion.div
-                          className="mb-7"
-                          initial={{ opacity: 0, y: 18 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 0.76,
-                            duration: 0.6,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
-                        >
-                          <label htmlFor="collab-name" style={labelStyle}>
-                            NAME <span style={{ color: RED }}>*</span>
+                    {!isSuccess ? (
+                      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                        {/* Name */}
+                        <div>
+                          <label htmlFor="modal-name" style={labelStyle}>
+                            YOUR NAME <span style={{ color: RED }}>*</span>
                           </label>
                           <input
-                            id="collab-name"
+                            id="modal-name"
                             {...register("name")}
-                            placeholder="Your name"
-                            autoComplete="name"
-                            className="collab-input"
+                            placeholder="e.g. John Doe / Rahul Sharma"
                             style={{
                               ...baseInput,
                               borderBottom: borderBottom("name"),
@@ -453,127 +393,99 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                             onBlur={() => setFocusedField(null)}
                           />
                           {errors.name && (
-                            <p style={errorStyle} role="alert">
-                              ↳ {errors.name.message}
-                            </p>
+                            <p style={errorStyle}>↳ {errors.name.message}</p>
                           )}
-                        </motion.div>
+                        </div>
 
-                        {/* ── EMAIL ── */}
-                        <motion.div
-                          className="mb-7"
-                          initial={{ opacity: 0, y: 18 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 0.84,
-                            duration: 0.6,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
-                        >
-                          <label htmlFor="collab-email" style={labelStyle}>
-                            EMAIL <span style={{ color: RED }}>*</span>
-                          </label>
-                          <input
-                            id="collab-email"
-                            {...register("email")}
-                            type="email"
-                            placeholder="your@email.com"
-                            autoComplete="email"
-                            className="collab-input"
-                            style={{
-                              ...baseInput,
-                              borderBottom: borderBottom("email"),
-                            }}
-                            onFocus={() => setFocusedField("email")}
-                            onBlur={() => setFocusedField(null)}
-                          />
-                          {errors.email && (
-                            <p style={errorStyle} role="alert">
-                              ↳ {errors.email.message}
-                            </p>
-                          )}
-                        </motion.div>
+                        {/* WhatsApp / Phone & Email Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          {/* WhatsApp / Phone */}
+                          <div>
+                            <label htmlFor="modal-phone" style={labelStyle}>
+                              WHATSAPP / PHONE <span style={{ color: RED }}>*</span>
+                            </label>
+                            <input
+                              id="modal-phone"
+                              type="tel"
+                              {...register("phone")}
+                              placeholder="e.g. +91 98765 43210"
+                              style={{
+                                ...baseInput,
+                                borderBottom: borderBottom("phone"),
+                              }}
+                              onFocus={() => setFocusedField("phone")}
+                              onBlur={() => setFocusedField(null)}
+                            />
+                            {errors.phone && (
+                              <p style={errorStyle}>↳ {errors.phone.message}</p>
+                            )}
+                          </div>
 
-                        {/* ── PROJECT TYPE ── */}
-                        <motion.div
-                          className="mb-7"
-                          initial={{ opacity: 0, y: 18 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 0.92,
-                            duration: 0.6,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
-                        >
-                          <label style={labelStyle}>PROJECT TYPE</label>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexWrap: "wrap",
-                              gap: "8px",
-                            }}
-                            role="group"
-                            aria-label="Select project type"
-                          >
+                          {/* Email */}
+                          <div>
+                            <label htmlFor="modal-email" style={labelStyle}>
+                              WORK EMAIL <span style={{ color: RED }}>*</span>
+                            </label>
+                            <input
+                              id="modal-email"
+                              type="email"
+                              {...register("email")}
+                              placeholder="you@company.com"
+                              style={{
+                                ...baseInput,
+                                borderBottom: borderBottom("email"),
+                              }}
+                              onFocus={() => setFocusedField("email")}
+                              onBlur={() => setFocusedField(null)}
+                            />
+                            {errors.email && (
+                              <p style={errorStyle}>↳ {errors.email.message}</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Project Type */}
+                        <div>
+                          <label style={labelStyle}>SERVICE NEEDED</label>
+                          <div className="flex flex-wrap gap-2 mt-2">
                             {PROJECT_TYPES.map((type) => {
                               const active = selectedType === type;
                               return (
-                                <motion.button
+                                <button
                                   key={type}
                                   type="button"
-                                  onClick={() =>
-                                    setSelectedType(active ? "" : type)
-                                  }
-                                  whileTap={{ scale: 0.94 }}
-                                  aria-pressed={active}
+                                  onClick={() => setSelectedType(type)}
+                                  className="text-xs px-3.5 py-2 rounded-lg transition-all duration-200 border"
                                   style={{
                                     fontFamily: "var(--font-poppins)",
-                                    fontSize: "9px",
-                                    letterSpacing: "0.2em",
-                                    textTransform: "uppercase",
-                                    padding: "9px 15px",
-                                    border: `1px solid ${active ? RED : "rgba(255,255,255,0.16)"}`,
-                                    background: active
-                                      ? `oklch(59.71% 0.23 23.86 / 0.12)`
-                                      : "transparent",
-                                    color: active
-                                      ? RED
-                                      : "rgba(255,255,255,0.4)",
+                                    letterSpacing: "0.08em",
+                                    borderColor: active ? RED : "rgba(255,255,255,0.1)",
+                                    backgroundColor: active ? RED : "rgba(255,255,255,0.03)",
+                                    color: active ? "white" : "rgba(255,255,255,0.6)",
+                                    fontWeight: active ? "600" : "400",
                                     cursor: "pointer",
-                                    transition: "all 0.22s ease",
                                   }}
                                 >
                                   {type}
-                                </motion.button>
+                                </button>
                               );
                             })}
                           </div>
-                        </motion.div>
+                        </div>
 
-                        {/* ── MESSAGE ── */}
-                        <motion.div
-                          className="mb-9"
-                          initial={{ opacity: 0, y: 18 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 1.0,
-                            duration: 0.6,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
-                        >
-                          <label htmlFor="collab-message" style={labelStyle}>
-                            MESSAGE <span style={{ color: RED }}>*</span>
+                        {/* Message */}
+                        <div>
+                          <label htmlFor="modal-message" style={labelStyle}>
+                            WHAT DO YOU WANT AUTOMATED? <span style={{ color: RED }}>*</span>
                           </label>
                           <textarea
-                            id="collab-message"
+                            id="modal-message"
                             {...register("message")}
                             rows={3}
-                            placeholder="Tell us about your project..."
-                            className="collab-input"
+                            placeholder="Briefly describe your current manual bottlenecks or workflow requirements..."
                             style={{
                               ...baseInput,
                               resize: "none",
-                              display: "block",
                               lineHeight: "1.65",
                               borderBottom: borderBottom("message"),
                             }}
@@ -581,233 +493,132 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                             onBlur={() => setFocusedField(null)}
                           />
                           {errors.message && (
-                            <p style={errorStyle} role="alert">
-                              ↳ {errors.message.message}
-                            </p>
+                            <p style={errorStyle}>↳ {errors.message.message}</p>
                           )}
-                        </motion.div>
+                        </div>
 
-                        {/* Submit error */}
+                        {/* Submit Error */}
                         {submitError && (
-                          <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            style={{ ...errorStyle, marginBottom: "12px" }}
-                            role="alert"
-                          >
-                            ↳ Something went wrong. Please try again.
-                          </motion.p>
+                          <p style={{ ...errorStyle, marginBottom: "12px" }}>
+                            ↳ Could not dispatch. Please message directly on WhatsApp!
+                          </p>
                         )}
 
-                        {/* ── TRANSMIT BUTTON ── */}
-                        <motion.div
-                          initial={{ opacity: 0, y: 18 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 1.08,
-                            duration: 0.6,
-                            ease: [0.16, 1, 0.3, 1],
+                        {/* Submit Button */}
+                        <motion.button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="relative overflow-hidden w-full rounded-xl transition-transform hover:scale-[1.01]"
+                          style={{
+                            border: `1px solid ${RED}`,
+                            backgroundColor: RED,
+                            padding: "18px 24px",
+                            cursor: isSubmitting ? "wait" : "pointer",
+                            boxShadow: `0 8px 24px -4px ${RED_RGBA} 0.4)`,
                           }}
                         >
-                          <motion.button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="relative overflow-hidden w-full"
+                          <span
                             style={{
-                              border: `1px solid ${RED}`,
-                              padding: "22px 28px",
-                              background: "transparent",
-                              cursor: isSubmitting ? "wait" : "pointer",
+                              position: "relative",
+                              zIndex: 1,
+                              fontFamily: "var(--font-poppins)",
+                              fontSize: "11px",
+                              letterSpacing: "0.24em",
+                              textTransform: "uppercase",
+                              color: "white",
+                              fontWeight: "600",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: "8px",
                             }}
-                            initial="rest"
-                            whileHover={!isSubmitting ? "hov" : undefined}
                           >
-                            {/* Red fill sweep */}
-                            <motion.div
-                              aria-hidden="true"
-                              variants={{
-                                rest: { scaleX: 0 },
-                                hov: {
-                                  scaleX: 1,
-                                  transition: {
-                                    duration: 0.45,
-                                    ease: [0.16, 1, 0.3, 1],
-                                  },
-                                },
-                              }}
-                              style={{
-                                position: "absolute",
-                                inset: 0,
-                                backgroundColor: RED,
-                                transformOrigin: "left",
-                              }}
-                            />
-                            {/* Shine line at top */}
-                            <motion.div
-                              aria-hidden="true"
-                              variants={{
-                                rest: { scaleX: 0 },
-                                hov: {
-                                  scaleX: 1,
-                                  transition: {
-                                    duration: 0.45,
-                                    ease: [0.16, 1, 0.3, 1],
-                                  },
-                                },
-                              }}
-                              style={{
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                height: "1px",
-                                background: "rgba(255,255,255,0.3)",
-                                transformOrigin: "left",
-                              }}
-                            />
-                            <span
-                              style={{
-                                position: "relative",
-                                zIndex: 1,
-                                fontFamily: "var(--font-poppins)",
-                                fontSize: "10px",
-                                letterSpacing: "0.38em",
-                                textTransform: "uppercase",
-                                color: "white",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: "12px",
-                              }}
-                            >
-                              {isSubmitting ? (
-                                <>
-                                  <motion.span
-                                    animate={{ rotate: 360 }}
-                                    transition={{
-                                      duration: 1,
-                                      repeat: Infinity,
-                                      ease: "linear",
-                                    }}
-                                    style={{
-                                      display: "inline-block",
-                                      fontSize: "11px",
-                                    }}
-                                  >
-                                    ◌
-                                  </motion.span>
-                                  TRANSMITTING
-                                </>
-                              ) : (
-                                "TRANSMIT →"
-                              )}
-                            </span>
-                          </motion.button>
-                        </motion.div>
-                      </motion.form>
-                    )}
-
-                    {/* ── SUCCESS STATE ── */}
-                    {isSuccess && (
-                      <motion.div
-                        key="success"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="flex flex-col"
-                      >
-                        {SUCCESS_WORDS.map(({ text, accent }, i) => (
-                          <div key={text} style={{ overflow: "hidden" }}>
-                            <motion.div
-                              initial={{ y: "110%" }}
-                              animate={{ y: "0%" }}
-                              transition={{
-                                delay: i * 0.085,
-                                duration: 0.9,
-                                ease: [0.16, 1, 0.3, 1],
-                              }}
-                              style={{
-                                fontFamily: "var(--font-poppins)",
-                                fontSize: "clamp(42px, 5.5vw, 76px)",
-                                lineHeight: 0.88,
-                                color: accent ? RED : "white",
-                                fontWeight: "normal",
-                                marginBottom: "2px",
-                              }}
-                            >
-                              {text}
-                            </motion.div>
-                          </div>
+                            {isSubmitting ? "DISPATCHING INQUIRY..." : "REQUEST FREE AUDIT & ROADMAP →"}
+                          </span>
+                        </motion.button>
+                      </form>
+                    ) : (
+                      /* Success State */
+                      <div className="py-8 flex flex-col justify-center">
+                        {SUCCESS_WORDS.map(({ text, accent }) => (
+                          <h3
+                            key={text}
+                            style={{
+                              fontFamily: "var(--font-poppins)",
+                              fontSize: "clamp(34px, 4.5vw, 60px)",
+                              lineHeight: 0.94,
+                              color: accent ? RED : "white",
+                              fontWeight: "bold",
+                              margin: 0,
+                            }}
+                          >
+                            {text}
+                          </h3>
                         ))}
 
-                        {/* Animated red rule */}
-                        <motion.div
-                          aria-hidden="true"
+                        <div
                           style={{
                             height: "1px",
                             background: `linear-gradient(to right, ${RED}, transparent)`,
-                            marginTop: "28px",
-                            marginBottom: "24px",
-                            transformOrigin: "left",
-                          }}
-                          initial={{ scaleX: 0 }}
-                          animate={{ scaleX: 1 }}
-                          transition={{
-                            delay: 0.35,
-                            duration: 0.9,
-                            ease: [0.16, 1, 0.3, 1],
+                            marginTop: "24px",
+                            marginBottom: "20px",
                           }}
                         />
 
-                        <motion.p
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.5, duration: 0.6 }}
+                        <p
                           style={{
                             fontFamily: "var(--font-poppins)",
-                            fontSize: "12px",
-                            lineHeight: "1.85",
-                            color: "rgba(255,255,255,0.32)",
-                            marginBottom: "32px",
+                            fontSize: "13px",
+                            lineHeight: "1.7",
+                            color: "rgba(255,255,255,0.6)",
+                            marginBottom: "28px",
                           }}
                         >
-                          We&apos;ve received your transmission.
+                          Thank you {submittedName}! Your automation brief has been delivered directly to Founder Krishna Prajapati.
                           <br />
-                          Expect a reply within 24–48 hours.
-                        </motion.p>
+                          We will review your requirements and reach out within 2 hours.
+                        </p>
 
-                        <motion.button
-                          onClick={onClose}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.7, duration: 0.6 }}
-                          whileHover={{ x: -5 }}
-                          style={{
-                            fontFamily: "var(--font-poppins)",
-                            fontSize: "10px",
-                            letterSpacing: "0.3em",
-                            textTransform: "uppercase",
-                            color: RED,
-                            background: "none",
-                            border: "none",
-                            cursor: "pointer",
-                            padding: 0,
-                            textAlign: "left",
-                            width: "fit-content",
-                          }}
-                        >
-                          ← RETURN TO SITE
-                        </motion.button>
-                      </motion.div>
+                        <div className="flex flex-col sm:flex-row items-center gap-4">
+                          <a
+                            href={`https://wa.me/917078994915?text=${encodeURIComponent(
+                              `Hi Krishna, I just submitted an inquiry on neweraautomations.com regarding automation for ${submittedName}.`
+                            )}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-xl bg-green-600 hover:bg-green-500 text-white font-medium px-5 py-3 text-xs transition-all w-full sm:w-auto justify-center"
+                          >
+                            <FaWhatsapp className="w-4 h-4" />
+                            <span>Prefer Instant Chat? WhatsApp Krishna</span>
+                          </a>
+
+                          <button
+                            type="button"
+                            onClick={onClose}
+                            style={{
+                              fontFamily: "var(--font-poppins)",
+                              fontSize: "11px",
+                              letterSpacing: "0.2em",
+                              textTransform: "uppercase",
+                              color: "rgba(255,255,255,0.4)",
+                              background: "none",
+                              border: "none",
+                              cursor: "pointer",
+                            }}
+                            className="hover:text-white"
+                          >
+                            ← RETURN TO SITE
+                          </button>
+                        </div>
+                      </div>
                     )}
                   </AnimatePresence>
                 </div>
               </div>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
