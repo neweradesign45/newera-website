@@ -21,7 +21,10 @@ const navLinks = [
 
 const socialLinks = [
   { name: "WhatsApp", href: "https://wa.me/917078994915" },
-  { name: "Email", href: `mailto:${EMAIL}` },
+  {
+    name: "Email",
+    href: `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=Automation%20Inquiry%20-%20NewEra%20Automations`,
+  },
 ];
 
 const EASE_OPEN: [number, number, number, number] = [0.76, 0, 0.24, 1];
@@ -365,8 +368,10 @@ const Navbar: React.FC = () => {
                       Let&apos;s Talk
                     </span>
                     <motion.a
-                      href={`mailto:${EMAIL}`}
-                      className="text-sm hover:text-primary transition-colors"
+                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=Automation%20Inquiry%20-%20NewEra%20Automations`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm hover:text-primary transition-colors cursor-pointer"
                       whileHover={{ x: 4 }}
                       transition={{ duration: 0.2 }}
                     >

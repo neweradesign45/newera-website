@@ -202,7 +202,7 @@ export default function CreativeFooter() {
                 label="WhatsApp"
               />
               <SocialLink
-                href={`mailto:${EMAIL}`}
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=Automation%20Inquiry%20-%20NewEra%20Automations`}
                 icon={FaEnvelope}
                 label="Email"
               />

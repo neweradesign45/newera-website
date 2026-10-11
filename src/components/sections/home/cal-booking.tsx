@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import PhraseAnimation from "@/components/common/phrase-reveal";
 import { WHATSAPP_LINK, EMAIL } from "@/lib/constants";
@@ -21,6 +21,31 @@ const CalBooking = () => {
   });
 
   const yImage = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const [copied, setCopied] = useState(false);
+
+  const handleEmailClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+
+    const isMobile =
+      typeof window !== "undefined" &&
+      /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      window.location.href = `mailto:${EMAIL}?subject=Automation%20Inquiry%20-%20NewEra%20Automations`;
+    } else {
+      // Desktop: Open Gmail web composer directly in new tab — 100% reliable, zero blank tab
+      window.open(
+        `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=Automation%20Inquiry%20-%20NewEra%20Automations`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
+  };
 
   return (
     <div
@@ -117,21 +142,25 @@ const CalBooking = () => {
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="w-full md:w-1/2"
         >
-          <Link href={`mailto:${EMAIL}`}>
-            <div className="group relative rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-8 hover:border-primary/30 hover:bg-primary/[0.04] transition-all duration-500 cursor-pointer text-center">
-              <div className="mx-auto w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
-                <FaEnvelope className="w-8 h-8 text-primary" />
-              </div>
-              <h4 className="text-xl font-semibold mb-2">Email</h4>
-              <p className="text-sm text-muted-foreground mb-4">
-                Detailed proposals & documentation
-              </p>
-              <span className="inline-flex items-center gap-2 text-sm font-medium text-primary group-hover:gap-3 transition-all duration-300">
-                Send Email
-                <span className="transition-transform group-hover:translate-x-1">→</span>
-              </span>
+          <div
+            onClick={handleEmailClick}
+            className="group relative rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm p-8 hover:border-primary/30 hover:bg-primary/[0.04] transition-all duration-500 cursor-pointer text-center"
+          >
+            <div className="mx-auto w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
+              <FaEnvelope className="w-8 h-8 text-primary" />
             </div>
-          </Link>
+            <h4 className="text-xl font-semibold mb-1">Email</h4>
+            <div className="font-mono text-xs text-primary/90 bg-primary/10 border border-primary/20 rounded-full px-3 py-1 inline-block mb-3">
+              {EMAIL}
+            </div>
+            <p className="text-sm text-muted-foreground mb-4">
+              Detailed proposals &amp; documentation
+            </p>
+            <span className="inline-flex items-center gap-2 text-sm font-medium text-primary group-hover:gap-3 transition-all duration-300">
+              {copied ? "✓ Copied to Clipboard! Opening..." : "Send Email"}
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </span>
+          </div>
         </motion.div>
       </div>
     </div>

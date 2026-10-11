@@ -28,13 +28,8 @@ const AboutMe = () => {
       {/* Background Ambient Radial Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Top Agency Commercial Identity */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-30 text-center max-w-3xl mx-auto mb-4"
-      >
+      {/* Top Agency Commercial Identity — Renders Immediately at 0ms */}
+      <div className="relative z-30 text-center max-w-3xl mx-auto mb-4">
         <span className="text-[11px] font-mono uppercase tracking-[0.35em] text-primary px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 inline-block mb-3 shadow-lg">
           ✦ AI AUTOMATION AGENCY ✦
         </span>
@@ -61,7 +56,7 @@ const AboutMe = () => {
             <span>View Case Studies</span>
           </Link>
         </div>
-      </motion.div>
+      </div>
 
       {/* Main Center Founder Portrait Card with Floating Stat Badges */}
       <div className="relative z-20 w-full max-w-4xl mx-auto flex items-center justify-center my-auto">
@@ -174,11 +169,20 @@ const AboutMe = () => {
               </span>
             </Link>
             <span className="w-1 h-1 bg-primary rounded-full" />
-            <Link href={`mailto:${EMAIL}`} target="_blank">
-              <span className="hover:text-primary transition-colors cursor-pointer">
-                Email
-              </span>
-            </Link>
+            <a
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=Automation%20Inquiry%20-%20NewEra%20Automations`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                if (typeof window !== "undefined" && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                  e.preventDefault();
+                  window.location.href = `mailto:${EMAIL}`;
+                }
+              }}
+              className="hover:text-primary transition-colors cursor-pointer"
+            >
+              Email
+            </a>
           </div>
         </div>
       </motion.div>
