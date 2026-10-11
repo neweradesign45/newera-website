@@ -98,12 +98,12 @@ const CollabSec: React.FC = () => {
           <h3 className="text-xl md:text-3xl font-bold tracking-tight text-white mb-4 max-w-xl">
             Need a Custom AI Automation Built for Your Business?
           </h3>
-          <button
-            onClick={() => setModalOpen(true)}
+          <a
+            href="#contact"
             className="px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase text-white bg-primary hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20 hover:scale-105 cursor-pointer flex items-center gap-2"
           >
-            Request Custom Audit & Proposal →
-          </button>
+            Request Custom Audit &amp; Proposal ↓
+          </a>
         </motion.div>
 
         {/* ── SPLIT IMAGES ── */}

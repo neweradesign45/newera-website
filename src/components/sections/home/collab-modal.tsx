@@ -93,12 +93,24 @@ export default function CollabModal({ isOpen, onClose }: Props) {
     setIsSubmitting(true);
     setSubmitError(false);
     try {
-      const res = await fetch("/api/collab", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, projectType: selectedType }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "a957aa51-07fa-46b1-a740-35a1b4143049",
+          name: data.name,
+          email: data.email,
+          service_needed: selectedType || "General Automation",
+          message: data.message,
+          subject: `⚡ Collab Intake Lead: ${data.name} (${selectedType || "General"})`,
+          from_name: "NewEra Automations Lead Engine",
+        }),
       });
-      if (res.ok) {
+      const result = await res.json();
+      if (result.success) {
         setIsSuccess(true);
       } else {
         setSubmitError(true);
